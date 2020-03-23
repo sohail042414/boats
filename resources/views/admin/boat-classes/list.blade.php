@@ -6,12 +6,12 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Boats/Ships/Cruises</h1>
+        <h1 class="m-0 text-dark">Boat Classes</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
-            <li class="breadcrumb-item active">Boats</li>
+            <li class="breadcrumb-item active">Boat Classes</li>
         </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -29,17 +29,11 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="boats-table" class="table table-bordered table-hover">
+              <table id="boats-classes-table" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Image</th>
-                  <th>Name</th>                  
-                  <th>Short Description</th>
-                  <th>Capacity</th>
-                  <th>Type</th>
-                  <th>Class</th>
-                  <th>Year Build</th>
+                  <th>Name</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,13 +41,7 @@
                 <tfoot>
                 <tr>
                   <th>Id</th>
-                  <th>Image</th>
                   <th>Name</th>
-                  <th>Short Description</th>
-                  <th>Capacity</th>
-                  <th>Type</th>
-                  <th>Class</th>
-                  <th>Year Build</th>
                 </tr>
                 </tfoot>
               </table>
@@ -73,28 +61,13 @@
     <script src="{{ asset('vendor/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
     <script>
     $(function() {
-        $('#boats-table').DataTable({
+        $('#boats-classes-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('boats-grid') !!}',
+            ajax: '{!! route('boat-classes-grid') !!}',
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'image', name: 'image' },
-                { data: 'name', name: 'name' },
-                { data: 'short_description', name: 'id' },
-                { data: 'capacity', name: 'capacity' },
-                { data: 'type.name', name: 'type.name' },
-                { data: 'class.name', name: 'class.name' },
-                { data: 'year_built', name: 'year_built' }
-            ],
-            columnDefs : [
-              {
-                "targets" : 1,
-                "data": "img",
-                "render" : function (data) {
-                    return '<img class="img-size-50" src="images/'+data+'"/>';
-                  }
-              }
+                { data: 'name', name: 'name' }
             ]
         });
     });

@@ -23,6 +23,14 @@ Route::get('boats-grid', 'BoatController@anyData')->name('boats-grid');
 
 Route::resource('boats', 'BoatController');
 
+Route::get('boat-classes-grid', 'BoatClassController@anyData')->name('boat-classes-grid');
+
+Route::resource('boat-classes', 'BoatClassController');
+
+Route::get('boat-types-grid', 'BoatTypeController@anyData')->name('boat-types-grid');
+
+Route::resource('boat-types', 'BoatTypeController');
+
 Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();

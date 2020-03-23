@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BoatClass;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class BoatClassController extends Controller
 {
@@ -14,7 +15,7 @@ class BoatClassController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin/boat-classes/list');
     }
 
     /**
@@ -81,5 +82,15 @@ class BoatClassController extends Controller
     public function destroy(BoatClass $boatClass)
     {
         //
+    }
+
+    /**
+     * Process datatables ajax request.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function anyData()
+    {
+        return Datatables::of(BoatClass::query())->make(true);
     }
 }

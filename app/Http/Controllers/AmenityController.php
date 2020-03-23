@@ -38,6 +38,16 @@ class AmenityController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData = $request->validate([
+            'amenity_name' => 'required|max:255',
+        ]);
+
+        $model = new Amenity();
+        $model->name = $validatedData['amenity_name'];
+        $model->save();
+
+        return redirect()->back();
+        
     }
 
     /**

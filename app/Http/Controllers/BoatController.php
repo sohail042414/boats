@@ -26,6 +26,7 @@ class BoatController extends Controller
     public function create()
     {
         //
+        return view('admin/boats/create');
     }
 
     /**

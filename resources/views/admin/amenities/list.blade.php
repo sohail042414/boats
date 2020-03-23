@@ -22,10 +22,45 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-12">
-          <div class="card">
+          <div class="col-md-5 col-lg-5 col-sm-12">
+             <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add New</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action="{{ url('/amenities') }}" role="form" method="POST">
+                @csrf
+                
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="amenity-name">Name</label>
+                    <input name="amenity_name" type="text" class="form-control" id="amenity-name" placeholder="Some good feature">
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+
+            @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+          </div>
+
+
+        <div class="col-md-7 col-lg-7 col-sm-12">
+          <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title"></h3>
+              <h3 class="card-title">All amenities</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -33,7 +68,7 @@
                 <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Name</th>
+                  <th>Name</th>                  
                 </tr>
                 </thead>
                 <tbody>

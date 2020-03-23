@@ -22,10 +22,52 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-12">
-          <div class="card">
+
+      <div class="col-md-5 col-lg-5 col-sm-12">
+             <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add New</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action="{{ url('/boat-types') }}" role="form" method="POST">
+                @csrf
+                
+                <div class="card-body">
+                  
+                  <div class="form-group">
+                    <label for="boat-type-name">Name</label>
+                    <input name="boat_type_name" type="text" class="form-control" id="boat-type-name" placeholder="Luxury ">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="boat-type-description">Description</label>
+                    <input name="boat_type_description" type="text" class="form-control" id="boat-type-description" placeholder="Short description ">
+                  </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+          </div>
+
+
+        <div class="col-lg-7 col-md-7 col-sm-12">
+        <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title"></h3>
+              <h3 class="card-title">All Types</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -34,6 +76,7 @@
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
+                  <th>Description</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,6 +85,7 @@
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
+                  <th>Description</th>
                 </tr>
                 </tfoot>
               </table>
@@ -67,7 +111,8 @@
             ajax: '{!! route('boat-types-grid') !!}',
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' }
+                { data: 'name', name: 'name' },
+                { data: 'description', name: 'description' }
             ]
         });
     });

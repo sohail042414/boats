@@ -37,6 +37,17 @@ class BoatTypeController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData = $request->validate([
+            'boat_type_name' => 'required|max:255',
+            'boat_type_description' => 'required|max:255',
+        ]);
+
+        $model = new BoatType();
+        $model->name = $validatedData['boat_type_name'];
+        $model->description = $validatedData['boat_type_description'];
+        $model->save();
+
+        return redirect()->back();
     }
 
     /**

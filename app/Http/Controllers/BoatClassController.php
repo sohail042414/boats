@@ -36,7 +36,18 @@ class BoatClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //        //
+        $validatedData = $request->validate([
+            'boat_class_name' => 'required|max:255',
+            'boat_class_description' => 'required|max:255',
+        ]);
+
+        $model = new BoatClass();
+        $model->name = $validatedData['boat_class_name'];
+        $model->description = $validatedData['boat_class_description'];
+        $model->save();
+
+        return redirect()->back();
     }
 
     /**

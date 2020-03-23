@@ -10,6 +10,7 @@ $factory->define(Boat::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'short_description' => $faker->text,
+        'image' => 'default_boat.jpg',
         'description' => $faker->text,
         'type' => $faker->numberBetween(1,5),
         'class' => $faker->numberBetween(1,5),

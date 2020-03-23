@@ -29,9 +29,17 @@ class CreateBoatsTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('boat_images', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('boat_id');
+            $table->string('name');
+        });
+
+
         Schema::create('boats', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('image');
             $table->text('short_description');
             $table->text('description');
             $table->integer('type'); //small , big etc.

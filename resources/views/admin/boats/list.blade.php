@@ -33,7 +33,8 @@
                 <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Name</th>
+                  <th>Image</th>
+                  <th>Name</th>                  
                   <th>Short Description</th>
                   <th>Capacity</th>
                   <th>Type</th>
@@ -46,6 +47,7 @@
                 <tfoot>
                 <tr>
                   <th>Id</th>
+                  <th>Image</th>
                   <th>Name</th>
                   <th>Short Description</th>
                   <th>Capacity</th>
@@ -77,12 +79,22 @@
             ajax: '{!! route('boats-grid') !!}',
             columns: [
                 { data: 'id', name: 'id' },
+                { data: 'image', name: 'image' },
                 { data: 'name', name: 'name' },
                 { data: 'short_description', name: 'id' },
                 { data: 'capacity', name: 'capacity' },
                 { data: 'type.name', name: 'type.name' },
                 { data: 'class.name', name: 'class.name' },
                 { data: 'year_built', name: 'year_built' }
+            ],
+            columnDefs : [
+              {
+                "targets" : 1,
+                "data": "img",
+                "render" : function (data) {
+                    return '<img class="img-size-50" src="images/'+data+'"/>';
+                  }
+              }
             ]
         });
     });

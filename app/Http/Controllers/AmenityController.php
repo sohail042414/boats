@@ -82,6 +82,17 @@ class AmenityController extends Controller
     public function update(Request $request, Amenity $amenity)
     {
         //
+        $validatedData = $request->validate([
+            'amenity_name' => 'required|max:255',
+        ]);
+        
+        $amenity->name = $validatedData['amenity_name'];
+        $amenity->update();
+
+        return response()->json([
+            'success' => 'Record has been updated successfully!'
+        ]);
+
     }
 
     /**
@@ -92,7 +103,12 @@ class AmenityController extends Controller
      */
     public function destroy(Amenity $amenity)
     {
-        //
+        
+        $amenity->delete();
+
+        return response()->json([
+            'success' => 'Record has been deleted successfully!'
+        ]);
     }
 
     /**

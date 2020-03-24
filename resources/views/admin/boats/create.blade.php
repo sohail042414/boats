@@ -42,34 +42,6 @@
     <!-- /.content -->
     @endsection
     @section('scripts')
-    <script src="{{ asset('vendor/adminlte/plugins/datatables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('vendor/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
     <script>
-    $(function() {
-        $('#boats-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('boats-grid') !!}',
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'image', name: 'image' },
-                { data: 'name', name: 'name' },
-                { data: 'short_description', name: 'id' },
-                { data: 'capacity', name: 'capacity' },
-                { data: 'type.name', name: 'type.name' },
-                { data: 'class.name', name: 'class.name' },
-                { data: 'year_built', name: 'year_built' }
-            ],
-            columnDefs : [
-              {
-                "targets" : 1,
-                "data": "img",
-                "render" : function (data) {
-                    return '<img class="img-size-50" src="images/'+data+'"/>';
-                  }
-              }
-            ]
-        });
-    });
     </script>
     @endsection

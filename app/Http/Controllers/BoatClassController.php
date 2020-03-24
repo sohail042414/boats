@@ -82,6 +82,18 @@ class BoatClassController extends Controller
     public function update(Request $request, BoatClass $boatClass)
     {
         //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+        ]);
+        
+        $boatClass->name = $validatedData['name'];
+        $boatClass->description = $validatedData['description'];
+        $boatClass->update();
+
+        return response()->json([
+            'success' => 'Record has been updated successfully!'
+        ]);
     }
 
     /**
@@ -92,7 +104,11 @@ class BoatClassController extends Controller
      */
     public function destroy(BoatClass $boatClass)
     {
-        //
+        $boatClass->delete();
+
+        return response()->json([
+            'success' => 'Record has been deleted successfully!'
+        ]);
     }
 
     /**

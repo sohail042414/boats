@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BoatClass extends Model
+class CruiseCategory extends Model
 {
     //
     public $timestamps = true;

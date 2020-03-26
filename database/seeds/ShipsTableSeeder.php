@@ -1,9 +1,9 @@
 <?php
 
-use App\Boat;
+use App\Ship;
 use Illuminate\Database\Seeder;
 
-class BoatsTableSeeder extends Seeder
+class ShipsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class BoatsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Boat::class,50)->create()->each(function($b) {
+        factory(App\Ship::class,50)->create()->each(function($b) {
             $b->save();
         });
 

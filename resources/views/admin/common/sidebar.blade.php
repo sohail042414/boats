@@ -37,13 +37,13 @@
             <a href="" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Boats/Cruises/Ships
+                Cruise Ships
                 <i class="fas fa-angle-left right"></i>                
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/boats" class="nav-link">
+                <a href="/ships" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>See All</p>
                 </a>
@@ -66,19 +66,28 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="boat-classes" class="nav-link">
+            <a href="cruise-categories" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Boat Classes
+                Cruise Categories
                 <i class="fas fa-angle-right right"></i>                
               </p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="boat-types" class="nav-link">
+            <a href="ship-types" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Boat Types
+                Ship Types
+                <i class="fas fa-angle-right right"></i>                
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="capacity-categories" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Capacity Categoriess
                 <i class="fas fa-angle-right right"></i>                
               </p>
             </a>

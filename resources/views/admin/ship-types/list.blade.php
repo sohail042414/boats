@@ -6,12 +6,12 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Boat Types</h1>
+        <h1 class="m-0 text-dark">Ship Types</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
-            <li class="breadcrumb-item active">Boat Types</li>
+            <li class="breadcrumb-item active">Ship Types</li>
         </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -29,7 +29,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <table id="boats-types-table" class="table table-bordered table-hover">
+            <table id="ship-types-table" class="table table-bordered table-hover">
               <thead>
               <tr>
                 <th>Id</th>
@@ -62,7 +62,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="create-form" action="{{ url('/boat-types') }}" role="form" method="POST">
+            <form id="create-form" action="{{ url('/ship-types') }}" role="form" method="POST">
               @csrf
               
               <div class="card-body">
@@ -100,7 +100,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="edit-form" action="{{ url('/boat-types') }}" role="form" method="PUT">
+            <form id="edit-form" action="{{ url('/ship-types') }}" role="form" method="PUT">
               @csrf
               
               <div class="card-body">
@@ -137,10 +137,10 @@
     <script src="{{ asset('vendor/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
     <script>
     $(function() {
-        $('#boats-types-table').DataTable({
+        $('#ship-types-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('boat-types-grid') !!}',
+            ajax: '{!! route('ship-types-grid') !!}',
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'name', name: 'name' },
@@ -170,7 +170,7 @@
         });
 
         $.ajax({
-            url: "{{ url('/boat-types') }}/"+row_id,
+            url: "{{ url('/ship-types') }}/"+row_id,
             type: 'DELETE',
             success: function(response) {
 
@@ -182,7 +182,7 @@
                   delay : 3000,          
               });
 
-              $('#boats-types-table').DataTable().rows().invalidate('data').draw(false);
+              $('#ship-types-table').DataTable().rows().invalidate('data').draw(false);
             }
         });
         }
@@ -190,7 +190,7 @@
         function editTableRow(obj){
           
           var row_id = $(obj).attr('data-row');
-          var table =  $('#boats-types-table').DataTable();
+          var table =  $('#ship-types-table').DataTable();
           var tr = $(obj).closest('tr');
           var row = table.row(tr);
           var boat_class_id = row.data().id;
@@ -227,7 +227,7 @@
           });
 
           $.ajax({
-              url: "{{ url('/boat-types') }}/"+$('#edit-id').val(),
+              url: "{{ url('/ship-types') }}/"+$('#edit-id').val(),
               type: 'PUT',
               data : formData,
               success: function(response) {
@@ -241,7 +241,7 @@
                 });
                 resetForms();
 
-                $('#boats-types-table').DataTable().rows().invalidate('data').draw(false);
+                $('#ship-types-table').DataTable().rows().invalidate('data').draw(false);
               }
           });
         }

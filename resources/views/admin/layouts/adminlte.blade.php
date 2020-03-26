@@ -41,6 +41,19 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+
+    @if (session('global_success'))
+      <div class="alert alert-success">
+          {{ session('global_success') }}
+      </div>
+    @endif
+
+    @if (session('global_error'))
+      <div class="alert alert-error">
+          {{ session('global_error') }}
+      </div>
+    @endif
+
     @yield('content')
   </div>
   <!-- /.content-wrapper -->

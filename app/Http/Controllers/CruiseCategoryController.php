@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\BoatType;
+use App\CruiseCategory;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
-class BoatTypeController extends Controller
+class CruiseCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class BoatTypeController extends Controller
      */
     public function index()
     {
-        return view('admin/boat-types/list');
+        return view('admin/cruise-categories/list');
     }
 
     /**
@@ -36,15 +36,15 @@ class BoatTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //        //
         $validatedData = $request->validate([
-            'boat_type_name' => 'required|max:255',
-            'boat_type_description' => 'required|max:255',
+            'boat_class_name' => 'required|max:255',
+            'boat_class_description' => 'required|max:255',
         ]);
 
-        $model = new BoatType();
-        $model->name = $validatedData['boat_type_name'];
-        $model->description = $validatedData['boat_type_description'];
+        $model = new CruiseCategory();
+        $model->name = $validatedData['boat_class_name'];
+        $model->description = $validatedData['boat_class_description'];
         $model->save();
 
         return redirect()->back();
@@ -53,10 +53,10 @@ class BoatTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\BoatType  $boatType
+     * @param  \App\CruiseCategory  $CruiseCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(BoatType $boatType)
+    public function show(CruiseCategory $cruiseCategory)
     {
         //
     }
@@ -64,10 +64,10 @@ class BoatTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BoatType  $boatType
+     * @param  \App\CruiseCategory  $CruiseCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(BoatType $boatType)
+    public function edit(CruiseCategory $cruiseCategory)
     {
         //
     }
@@ -76,20 +76,20 @@ class BoatTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BoatType  $boatType
+     * @param  \App\CruiseCategory  $CruiseCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BoatType $boatType)
+    public function update(Request $request, CruiseCategory $cruiseCategory)
     {
-               //
+        //
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
         ]);
         
-        $boatType->name = $validatedData['name'];
-        $boatType->description = $validatedData['description'];
-        $boatType->update();
+        $cruiseCategory->name = $validatedData['name'];
+        $cruiseCategory->description = $validatedData['description'];
+        $cruiseCategory->update();
 
         return response()->json([
             'success' => 'Record has been updated successfully!'
@@ -99,12 +99,12 @@ class BoatTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BoatType  $boatType
+     * @param  \App\CruiseCategory  $CruiseCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BoatType $boatType)
+    public function destroy(CruiseCategory $cruiseCategory)
     {
-        $boatType->delete();
+        $cruiseCategory->delete();
 
         return response()->json([
             'success' => 'Record has been deleted successfully!'
@@ -118,6 +118,6 @@ class BoatTypeController extends Controller
      */
     public function anyData()
     {
-        return Datatables::of(BoatType::query())->make(true);
+        return Datatables::of(CruiseCategory::query())->make(true);
     }
 }

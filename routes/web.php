@@ -15,25 +15,26 @@
 //     return view('welcome');
 // });
 
+
+Auth::routes();
+
 Route::get('amenities-grid', 'AmenityController@anyData')->name('amenities-grid');
 
 Route::resource('amenities', 'AmenityController');
 
-Route::get('boats-grid', 'BoatController@anyData')->name('boats-grid');
+Route::get('ships-grid', 'ShipController@anyData')->name('ships-grid');
 
-Route::resource('boats', 'BoatController');
+Route::resource('ships', 'ShipController');
 
-Route::get('boat-classes-grid', 'BoatClassController@anyData')->name('boat-classes-grid');
+Route::get('cruise-categories-grid', 'CruiseCategoryController@anyData')->name('cruise-categories-grid');
 
-Route::resource('boat-classes', 'BoatClassController');
+Route::resource('cruise-categories', 'CruiseCategoryController');
 
-Route::get('boat-types-grid', 'BoatTypeController@anyData')->name('boat-types-grid');
+Route::get('ship-types-grid', 'ShipTypeController@anyData')->name('ship-types-grid');
 
-Route::resource('boat-types', 'BoatTypeController');
+Route::resource('ship-types', 'ShipTypeController');
 
 Route::get('/', 'HomeController@index')->name('home');
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 

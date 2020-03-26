@@ -6,12 +6,12 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Boat Classes</h1>
+        <h1 class="m-0 text-dark">Cruise Categories</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
-            <li class="breadcrumb-item active">Boat Classes</li>
+            <li class="breadcrumb-item active">Cruise Categories</li>
         </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -26,11 +26,11 @@
       <div class="col-md-7 col-lg-7 col-sm-12">
             <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">All Classes</h3>
+              <h3 class="card-title">All Categories</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="boats-classes-table" class="table table-bordered table-hover">
+              <table id="cruise-categories-table" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Id</th>
@@ -64,7 +64,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ url('/boat-classes') }}" role="form" method="POST">
+              <form action="{{ url('/cruise-categories') }}" role="form" method="POST">
                 @csrf
                 
                 <div class="card-body">
@@ -103,7 +103,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ url('/boat-classes') }}" role="form" method="POST">
+              <form action="{{ url('/cruise-categories') }}" role="form" method="POST">
                 @csrf
                 
                 <div class="card-body">
@@ -122,7 +122,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="button" onclick="updateBoatClass()" class="btn btn-primary">Update</button>
+                  <button type="button" onclick="updateTableRow()" class="btn btn-primary">Update</button>
                   <button type="button" onclick="resetForms()" class="btn btn-info">Clear</button>
                 </div>
               </form>
@@ -140,10 +140,10 @@
     <script src="{{ asset('vendor/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
     <script>
     $(function() {
-        $('#boats-classes-table').DataTable({
+        $('#cruise-categories-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('boat-classes-grid') !!}',
+            ajax: '{!! route('cruise-categories-grid') !!}',
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'name', name: 'name' },
@@ -155,8 +155,8 @@
                 "targets" : 3,
                 "data": "img",
                 "render" : function (data,type,row) {
-                    var col_html = '<button type="button" data-row="'+row.id+'" class="btn btn-info btn-sm mr-1" onclick="editBoatClass(this)"  >Edit</button>';
-                    col_html += '<button type="button" class="btn btn-danger btn-sm" onclick="deleteBoatClass('+data+')"  >Delete</button>';
+                    var col_html = '<button type="button" data-row="'+row.id+'" class="btn btn-info btn-sm mr-1" onclick="editTableRow(this)"  >Edit</button>';
+                    col_html += '<button type="button" class="btn btn-danger btn-sm" onclick="deleteTableRow('+data+')"  >Delete</button>';
                     return col_html;
                   }
               }
@@ -165,7 +165,7 @@
     });
 
 
-    function deleteBoatClass(row_id){
+    function deleteTableRow(row_id){
 
         $.ajaxSetup({
             headers: {
@@ -174,7 +174,7 @@
         });
 
         $.ajax({
-            url: "{{ url('/boat-classes') }}/"+row_id,
+            url: "{{ url('/cruise-categories') }}/"+row_id,
             type: 'DELETE',
             success: function(response) {
 
@@ -186,15 +186,15 @@
                   delay : 3000,          
               });
 
-              $('#boats-classes-table').DataTable().rows().invalidate('data').draw(false);
+              $('#cruise-categories-table').DataTable().rows().invalidate('data').draw(false);
             }
         });
       }
 
-      function editBoatClass(obj){
+      function editTableRow(obj){
           
           var row_id = $(obj).attr('data-row');
-          var table =  $('#boats-classes-table').DataTable();
+          var table =  $('#cruise-categories-table').DataTable();
           var tr = $(obj).closest('tr');
           var row = table.row(tr);
           var boat_class_id = row.data().id;
@@ -215,7 +215,7 @@
           $('#edit-id').val('');
       }
 
-      function updateBoatClass(){
+      function updateTableRow(){
 
           var formData ={ 
               name : $('#edit-name').val(),
@@ -230,7 +230,7 @@
           });
 
           $.ajax({
-              url: "{{ url('/boat-classes') }}/"+$('#edit-id').val(),
+              url: "{{ url('/cruise-categories') }}/"+$('#edit-id').val(),
               type: 'PUT',
               data : formData,
               success: function(response) {
@@ -244,7 +244,7 @@
                 });
                 resetForms();
 
-                $('#boats-classes-table').DataTable().rows().invalidate('data').draw(false);
+                $('#cruise-categories-table').DataTable().rows().invalidate('data').draw(false);
               }
           });
       }

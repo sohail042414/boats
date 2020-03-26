@@ -30,7 +30,9 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/summernote/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
+    
+    @yield('styles')
+    
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -41,6 +43,19 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+
+    @if (session('global_success'))
+      <div class="alert alert-success">
+          {{ session('global_success') }}
+      </div>
+    @endif
+
+    @if (session('global_error'))
+      <div class="alert alert-error">
+          {{ session('global_error') }}
+      </div>
+    @endif
+
     @yield('content')
   </div>
   <!-- /.content-wrapper -->

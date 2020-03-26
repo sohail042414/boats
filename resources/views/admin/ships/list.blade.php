@@ -111,8 +111,8 @@
                     col_html += '<button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown">';
                     col_html += '<span class="sr-only">Toggle Dropdown</span>';
                     col_html += '<div class="dropdown-menu" role="menu">';
-                    col_html += '<a class="dropdown-item bg-gradient-primary" onclick="editRow('+row.id+')" href="/ships/edit/'+row.id+'">Edit</a>';
-                    col_html += '<a class="dropdown-item bg-gradient-danger" href="#">Delete</a>';
+                    col_html += '<a class="dropdown-item bg-gradient-primary" onclick="editTableRow('+row.id+')" href="/ships/edit/'+row.id+'">Edit</a>';
+                    col_html += '<a class="dropdown-item bg-gradient-danger" onclick="deleteTableRow('+row.id+')" href="#">Delete</a>';
                     col_html += '</button>';
                     col_html += '</div>';                                
                     return col_html;
@@ -123,7 +123,33 @@
         });
     });
 
-    function editRow(row_id){
+    function deleteTableRow(row_id){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ url('/ships') }}/"+row_id,
+            type: 'DELETE',
+            success: function(response) {
+
+              $(document).Toasts('create', {
+                  title: 'Deletion Complete',
+                  body: response.success,
+                  class : 'bg-danger',
+                  autohide:true,
+                  delay : 3000,          
+              });
+
+              $('#ships-table').DataTable().rows().invalidate('data').draw(false);
+            }
+        });
+    }
+
+    function editTableRow(row_id){
       window.location.href = '/ships/'+row_id+'/edit';
     }
     </script>

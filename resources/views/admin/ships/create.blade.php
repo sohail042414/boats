@@ -1,8 +1,11 @@
 @extends('admin.layouts.adminlte')    
 
-@section('content')
-<!-- Content Header (Page header) -->
+@section('styles')
+<link rel="stylesheet" href="{{ asset('vendor/adminlte') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="{{ asset('vendor/adminlte') }}/plugins/select2/css/select2.min.css">
+@endsection
 
+@section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
@@ -122,6 +125,23 @@
             </div>
           </div>
           <div class="card-body">
+            <div class="form-group">
+              <label for="ship-type">Amenities</label>
+              <select name="amenities" id="amenities" multiple="true"  class="select2 form-control">                               
+                @foreach ($amenities as $item)
+                  @if($item->id == old('ship_type',''))
+                    <option selected="selected" value="{{ $item->id }}">{{ $item->name }}</option>
+                  @else
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                  @endif
+                @endforeach;
+              </select>
+              @if($errors->has('amenities'))
+                    <span style="display:block;" class="error invalid-feedback"> {{ $errors->first('amenities') }}</span>
+              @endif
+            </div>
+
+
             <div class="form-group">
               <label for="ship-type">Ship Type</label>
               <select name="ship_type" id="ship-type"  class="form-control custom-select">                
@@ -282,6 +302,8 @@
 <!-- /.content -->
 @endsection
 @section('scripts')
+<script src="{{ asset('vendor/adminlte') }}/plugins/select2/js/select2.full.min.js"></script>
 <script>
+$('.select2').select2();
 </script>
 @endsection

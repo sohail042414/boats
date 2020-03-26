@@ -185,9 +185,9 @@
               $('#ship-types-table').DataTable().rows().invalidate('data').draw(false);
             }
         });
-        }
+    }
 
-        function editTableRow(obj){
+      function editTableRow(obj){
           
           var row_id = $(obj).attr('data-row');
           var table =  $('#ship-types-table').DataTable();
@@ -204,15 +204,15 @@
 
         }
 
-        function resetForms(){      
+      function resetForms(){      
           $('#create-row-card').show();
           $('#edit-row-card').hide();
           $('#edit-name').val('');
           $('#edit-description').val('');
           $('#edit-id').val('');
-        }
+      }
 
-        function updateTableRow(){
+      function updateTableRow(){
 
           var formData ={ 
               name : $('#edit-name').val(),

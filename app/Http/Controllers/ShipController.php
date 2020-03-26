@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ship;
 use App\ShipType;
+use App\Amenity;
 use App\CruiseCategory;
 use App\CapacityCategory;
 use Illuminate\Http\Request;
@@ -29,17 +30,16 @@ class ShipController extends Controller
     public function create()
     {
         //
-
+        $amenities = Amenity::all();
         $ship_types = ShipType::all();
         $cruise_cats = CruiseCategory::all();
         $capacity_cats = CapacityCategory::all();
-
-        //dd($capacity_cats);
 
         return view('admin/ships/create',[
             'ship_types' => $ship_types,
             'cruise_cats'=> $cruise_cats,
             'capacity_cats'=> $capacity_cats,
+            'amenities' => $amenities
         ]);
     }
 
@@ -51,7 +51,7 @@ class ShipController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+  
         //
         $validatedData = $request->validate([
             'name' => 'required|max:255',
@@ -77,34 +77,34 @@ class ShipController extends Controller
             'electricity' => 'required',
         ]);
 
-        $model = new Ship();
+        $ship = new Ship();
 
-        $model->name = $validatedData['name']; 
-        $model->ship_link = $validatedData['ship_link']; 
-        $model->short_description = $validatedData['short_description']; 
-        $model->title_description_1 = $validatedData['title_description_1']; 
-        $model->title_description_2 = $validatedData['title_description_2']; 
-        $model->title_description_3 = $validatedData['title_description_3']; 
-        $model->ship_type = $validatedData['ship_type']; 
-        $model->cruise_category = $validatedData['cruise_category']; 
-        $model->capacity_category = $validatedData['capacity_category']; 
-        $model->price = $validatedData['price']; 
-        $model->capacity = $validatedData['capacity']; 
-        $model->year_renovated = $validatedData['year_renovated']; 
-        $model->year_built = $validatedData['year_built']; 
-        $model->length = $validatedData['length']; 
-        $model->beam = $validatedData['beam']; 
-        $model->top_speed = $validatedData['top_speed']; 
-        $model->engines = $validatedData['engines']; 
-        $model->cabins = $validatedData['cabins']; 
-        $model->draft = $validatedData['draft']; 
-        $model->gross_tonnage = $validatedData['gross_tonnage']; 
-        $model->electricity = $validatedData['electricity']; 
-            
+        $ship->name = $validatedData['name']; 
+        $ship->ship_link = $validatedData['ship_link']; 
+        $ship->short_description = $validatedData['short_description']; 
+        $ship->title_description_1 = $validatedData['title_description_1']; 
+        $ship->title_description_2 = $validatedData['title_description_2']; 
+        $ship->title_description_3 = $validatedData['title_description_3']; 
+        $ship->ship_type = $validatedData['ship_type']; 
+        $ship->cruise_category = $validatedData['cruise_category']; 
+        $ship->capacity_category = $validatedData['capacity_category']; 
+        $ship->price = $validatedData['price']; 
+        $ship->capacity = $validatedData['capacity']; 
+        $ship->year_renovated = $validatedData['year_renovated']; 
+        $ship->year_built = $validatedData['year_built']; 
+        $ship->length = $validatedData['length']; 
+        $ship->beam = $validatedData['beam']; 
+        $ship->top_speed = $validatedData['top_speed']; 
+        $ship->engines = $validatedData['engines']; 
+        $ship->cabins = $validatedData['cabins']; 
+        $ship->draft = $validatedData['draft']; 
+        $ship->gross_tonnage = $validatedData['gross_tonnage']; 
+        $ship->electricity = $validatedData['electricity']; 
+
         //hard coded 
-        $model->image = 'default_boat.jpg'; 
+        $ship->image = 'default_boat.jpg'; 
+        $ship->save();
 
-        $model->save();
 
         return redirect('/ships')->with('global_success', 'New Ship Added!');
     }
@@ -129,15 +129,20 @@ class ShipController extends Controller
     public function edit(Ship $ship)
     {
         //
-
+        $amenities = Amenity::all();
         $ship_types = ShipType::all();
         $cruise_cats = CruiseCategory::all();
         $capacity_cats = CapacityCategory::all();
 
-        //dd($capacity_cats);
+        $ship_amenities = array();
+        foreach($ship->amenities as $record){
+            $ship_amenities[] = $record->id;
+        }
 
         return view('admin/ships/edit',[
             'ship' => $ship,
+            'ship_amenities' => $ship_amenities,
+            'amenities' => $amenities,
             'ship_types' => $ship_types,
             'cruise_cats'=> $cruise_cats,
             'capacity_cats'=> $capacity_cats,
@@ -154,7 +159,60 @@ class ShipController extends Controller
      */
     public function update(Request $request, Ship $ship)
     {
-        //
+              //
+              $validatedData = $request->validate([
+                'name' => 'required|max:255',
+                'ship_link' => 'required|max:255',
+                'short_description' => 'required|max:255|min:20',
+                'title_description_1' => 'required|min:20',
+                'title_description_2' => 'required|min:20',
+                'title_description_3' => 'required|min:20',
+                'ship_type' => 'required|numeric',
+                'cruise_category' => 'required|numeric',
+                'capacity_category' => 'required|numeric',
+                'price' => 'required|numeric',
+                'capacity' => 'required|numeric',
+                'year_built' => 'required|numeric',
+                'year_renovated' => 'required|numeric',
+                'length' => 'required|numeric',
+                'beam' => 'required|numeric',
+                'top_speed' => 'required|numeric',
+                'engines' => 'required|numeric',
+                'cabins' => 'required|numeric',
+                'draft' => 'required|numeric',
+                'gross_tonnage' => 'required',
+                'electricity' => 'required',
+            ]);
+    
+            $ship->name = $validatedData['name']; 
+            $ship->ship_link = $validatedData['ship_link']; 
+            $ship->short_description = $validatedData['short_description']; 
+            $ship->title_description_1 = $validatedData['title_description_1']; 
+            $ship->title_description_2 = $validatedData['title_description_2']; 
+            $ship->title_description_3 = $validatedData['title_description_3']; 
+            $ship->ship_type = $validatedData['ship_type']; 
+            $ship->cruise_category = $validatedData['cruise_category']; 
+            $ship->capacity_category = $validatedData['capacity_category']; 
+            $ship->price = $validatedData['price']; 
+            $ship->capacity = $validatedData['capacity']; 
+            $ship->year_renovated = $validatedData['year_renovated']; 
+            $ship->year_built = $validatedData['year_built']; 
+            $ship->length = $validatedData['length']; 
+            $ship->beam = $validatedData['beam']; 
+            $ship->top_speed = $validatedData['top_speed']; 
+            $ship->engines = $validatedData['engines']; 
+            $ship->cabins = $validatedData['cabins']; 
+            $ship->draft = $validatedData['draft']; 
+            $ship->gross_tonnage = $validatedData['gross_tonnage']; 
+            $ship->electricity = $validatedData['electricity']; 
+    
+            //hard coded 
+            $ship->image = 'default_boat.jpg'; 
+            $ship->save();
+
+            $ship->amenities()->sync($request->get('amenities'));
+
+            return redirect('/ships')->with('global_success', 'Record Updated Successfully!');
     }
 
     /**
@@ -165,7 +223,13 @@ class ShipController extends Controller
      */
     public function destroy(Ship $ship)
     {
-        //
+
+        $ship->amenities()->detach();
+        $ship->delete();
+
+        return response()->json([
+            'success' => 'Record has been deleted successfully!'
+        ]);
     }
 
     /**

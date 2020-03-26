@@ -1,5 +1,10 @@
 @extends('admin.layouts.adminlte')    
 
+@section('styles')
+<link rel="stylesheet" href="{{ asset('vendor/adminlte') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="{{ asset('vendor/adminlte') }}/plugins/select2/css/select2.min.css">
+@endsection
+
 @section('content')
 <!-- Content Header (Page header) -->
 
@@ -23,7 +28,7 @@
 
 <!-- Main content -->
 <section class="content">
-<form role="form" style="width:100%" id="ship-form" method="POST" action="/ships">  
+<form role="form" style="width:100%" id="ship-form" method="POST" action="/ships/{{ $ship->id }}">  
   <div class="row">
   <div class="col-md-12 col-lg-12 col-sm-12">
     @if ($errors->any())
@@ -40,7 +45,7 @@
     @endif
   </div>
   </div>  
-<div class="row">
+  <div class="row">
       <div class="col-md-6 col-lg-6 col-sm-12">
         <div class="card card-primary" style="min-height:900px;">
           <div class="card-header">
@@ -53,6 +58,7 @@
           <div class="card-body">
             <div class="form-group">
               @csrf
+              @method('PUT')
               <label for="inputName">Name</label>
               <input type="text" name="name" id="name" placeholder="Ship Name" class="form-control" value="{{ old('name',$ship->name) }}">
               @if($errors->has('name'))
@@ -123,15 +129,31 @@
           </div>
           <div class="card-body">
             <div class="form-group">
-              <label for="ship-type">Ship Type</label>
-              <select name="ship_type" id="ship-type"  class="form-control custom-select">                
-              <option selected disabled>Select one</option>  
-              @foreach ($ship_types as $item)
-                  @if($item->id == old('ship_type',$ship->ship_type))
+              <label for="ship-type">Amenities</label>
+              <select name="amenities[]" id="amenities" multiple="true"  class="select2 form-control">                               
+                @foreach ($amenities as $item)                   
+                  @if(collect(old('amenities'))->contains($item->id) || in_array($item->id,$ship_amenities)))
                     <option selected="selected" value="{{ $item->id }}">{{ $item->name }}</option>
                   @else
                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                   @endif
+                @endforeach;
+              </select>
+              @if($errors->has('amenities'))
+                    <span style="display:block;" class="error invalid-feedback"> {{ $errors->first('amenities') }}</span>
+              @endif
+            </div>
+
+            <div class="form-group">
+              <label for="ship-type">Ship Type</label>
+              <select name="ship_type" id="ship-type"  class="form-control custom-select">                
+              <option selected disabled>Select one</option>  
+                @foreach ($ship_types as $item)
+                    @if($item->id == old('ship_type',$ship->ship_type))
+                      <option selected="selected" value="{{ $item->id }}">{{ $item->name }}</option>
+                    @else
+                      <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endif
                 @endforeach;
               </select>
               @if($errors->has('ship_type'))
@@ -282,6 +304,8 @@
 <!-- /.content -->
 @endsection
 @section('scripts')
+<script src="{{ asset('vendor/adminlte') }}/plugins/select2/js/select2.full.min.js"></script>
 <script>
+$('.select2').select2();
 </script>
 @endsection

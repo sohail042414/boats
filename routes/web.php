@@ -30,6 +30,10 @@ Route::get('cruise-categories-grid', 'CruiseCategoryController@anyData')->name('
 
 Route::resource('cruise-categories', 'CruiseCategoryController');
 
+Route::get('capacity-categories-grid', 'CapacityCategoryController@anyData')->name('capacity-categories-grid');
+
+Route::resource('capacity-categories', 'CapacityCategoryController');
+
 Route::get('ship-types-grid', 'ShipTypeController@anyData')->name('ship-types-grid');
 
 Route::resource('ship-types', 'ShipTypeController');

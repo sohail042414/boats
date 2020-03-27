@@ -52,24 +52,32 @@ class CreateshipsTable extends Migration
             $table->string('image');
             $table->text('ship_link'); //external link
             $table->text('short_description');
-            $table->text('title_description_1');
-            $table->text('title_description_2');
-            $table->text('title_description_3');
-            $table->integer('price');           
-            $table->integer('capacity'); 
+            $table->text('title_description_1')->nullable();
+            $table->text('title_description_2')->nullable();
+            $table->text('title_description_3')->nullable();
+            $table->integer('price')->default(0);           
+            $table->integer('capacity')->default(0); 
             $table->integer('ship_type'); //small , big etc.
             $table->integer('cruise_category'); 
             $table->integer('capacity_category');  
-            $table->integer('year_built');
-            $table->integer('year_renovated');
-            $table->integer('length');
-            $table->integer('beam');
-            $table->string('top_speed');
-            $table->string('engines');
-            $table->integer('cabins');
-            $table->string('draft');
-            $table->string('gross_tonnage');
-            $table->string('electricity');
+            $table->integer('year_built')->default(2000);
+            $table->integer('year_renovated')->default(0);
+            $table->string('length',40)->nullable();
+            $table->string('beam',40)->nullable();
+            $table->string('draft',40)->nullable();
+            $table->string('top_speed',40)->nullable();
+            $table->string('crusing_speed',40)->nullable();
+            $table->string('engines',40)->nullable();
+            $table->integer('cabins')->default(1);
+            $table->integer('bathrooms')->default(1);
+            $table->string('electricity',40)->nullable();
+            $table->string('gross_tonnage',40)->nullable();
+            $table->string('water_capacity',40)->nullable();
+            $table->string('fuel_capacity',40)->nullable();
+            $table->string('fresh_water_maker',40)->nullable();
+            $table->string('tenders',40)->nullable();
+            $table->string('safety',40)->nullable();
+
             $table->timestamps();
         });
     }

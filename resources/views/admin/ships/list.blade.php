@@ -102,7 +102,6 @@
               },
               {
                 "targets" : 0,                
-                "data": "img",
                 "render" : function (data,type,row) {
                     //var col_html = '<button type="button" data-row="'+row.id+'" class="btn btn-info btn-sm mr-1" onclick="editAmenity(this)"  >Edit</button><br>';
                     //col_html += '<button style="margin-top:10px;" type="button" class="btn btn-danger btn-sm" onclick="deleteAmenity('+data+')"  >Delete</button>';                    
@@ -124,6 +123,11 @@
     });
 
     function deleteTableRow(row_id){
+
+        var confirmed = confirm('Are you sure? ');
+        if(confirmed == false){
+          return false;
+        }
 
         $.ajaxSetup({
             headers: {

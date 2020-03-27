@@ -1,7 +1,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/home" class="brand-link">
+    <a href="{{ url('/home') }}" class="brand-link">
       <img src="{{ asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">{{ config('app.name', 'Cruise Management system') }}</span>
@@ -25,7 +25,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="/home" class="nav-link">
+            <a href="{{ url('/home') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -43,13 +43,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/ships" class="nav-link">
+                <a href="{{ url('/ships') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>See All</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/ships/create" class="nav-link">
+                <a href="{{ url('/ships/create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add New</p>
                 </a>
@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="cruise-categories" class="nav-link">
+            <a href="{{ url('/cruise-categories') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Cruise Categories
@@ -75,7 +75,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="ship-types" class="nav-link">
+            <a href="{{ url('/ship-types') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Ship Types
@@ -84,7 +84,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="capacity-categories" class="nav-link">
+            <a href="{{ url('/capacity-categories') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Capacity Categoriess

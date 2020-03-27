@@ -143,6 +143,12 @@
     });
 
     function deleteAmenity(row_id){
+      
+      var confirmed = confirm('Are you sure? ');
+
+      if(confirmed == false){
+        return false;
+      }
 
       $.ajaxSetup({
           headers: {

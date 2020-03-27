@@ -49,7 +49,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="boats/create" class="nav-link">
+                <a href="/ships/create" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add New</p>
                 </a>

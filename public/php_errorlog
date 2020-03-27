@@ -1,0 +1,1 @@
+[27-Mar-2020 06:36:40 CST6CDT] PHP Fatal error:  require(): Failed opening required '/home/mindoara/public_html/availability/public/../vendor/autoload.php' (include_path='.:/usr/local/php73/pear') in /home/mindoara/public_html/availability/public/index.php on line 24

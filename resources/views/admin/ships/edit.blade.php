@@ -28,7 +28,7 @@
 
 <!-- Main content -->
 <section class="content">
-<form role="form" style="width:100%" id="ship-form" method="POST" action="/ships/{{ $ship->id }}">  
+<form role="form" style="width:100%" id="ship-form" method="POST" action="/ships/{{ $ship->id }}" enctype="multipart/form-data">  
   <div class="row">
     <div class="col-md-12 col-lg-12 col-sm-12">
       @if ($errors->any())
@@ -65,8 +65,11 @@
                 <label class="custom-file-label" for="">Choose file</label>
               </div>
               <div class="input-group-append">
-                <button type="submit" class="input-group-text" id="submit-image">Upload<button>
+                <span class="input-group-text" id=""><input type="submit" value="Upload" name="upload_image" class="btn btn-default btn-xs"></span>
               </div>
+            </div>
+            <div cla="input-group">
+                  <img class="img-fluid" src="/uploads/{{ $ship->image }}" alt="Photo">
             </div>
           </div>
           </div>
@@ -91,7 +94,7 @@
                 <label class="custom-file-label" for="">Choose file</label>
               </div>
               <div class="input-group-append">
-                <span class="input-group-text" id="">Upload</span>
+                  <span class="input-group-text" id=""><input type="submit" value="Upload" name="upload_extra_image" class="btn btn-default btn-xs"></span>
               </div>
             </div>
           </div>

@@ -30,21 +30,77 @@
 <section class="content">
 <form role="form" style="width:100%" id="ship-form" method="POST" action="/ships/{{ $ship->id }}">  
   <div class="row">
-  <div class="col-md-12 col-lg-12 col-sm-12">
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            There are some errors, check each field carefully!
-            {{--
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            --}}
-        </div>
-    @endif
-  </div>
+    <div class="col-md-12 col-lg-12 col-sm-12">
+      @if ($errors->any())
+          <div class="alert alert-danger">
+              There are some errors, check each field carefully!
+              {{--
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+              --}}
+          </div>
+      @endif
+    </div>
   </div>  
+
+  <div class="row">
+      <div class="col-md-6 col-lg-6 col-sm-12">
+        <div class="card card-primary">   
+          <div class="card-header">
+              <h3 class="card-title">Upload Display Image</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+          </div>
+          <div class="card-body">
+          <div class="form-group">
+            <label for="exampleInputFile">Display Image</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" name="display_image" class="custom-file-input" id="display_image">
+                <label class="custom-file-label" for="">Choose file</label>
+              </div>
+              <div class="input-group-append">
+                <button type="submit" class="input-group-text" id="submit-image">Upload<button>
+              </div>
+            </div>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12">
+        <div class="card card-primary">   
+          <div class="card-header">
+              <h3 class="card-title">Additional Images</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+          </div>
+          <div class="card-body">
+          <div class="form-group">
+            <label for="exampleInputFile">Additional Image</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" name="additional_image" class="custom-file-input" id="display_image">
+                <label class="custom-file-label" for="">Choose file</label>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text" id="">Upload</span>
+              </div>
+            </div>
+          </div>
+          </div>
+
+        </div>
+      </div>
+  </div>
+
   <div class="row">
       <div class="col-md-6 col-lg-6 col-sm-12">
         <div class="card card-primary" style="min-height:900px;">

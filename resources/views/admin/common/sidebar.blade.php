@@ -57,38 +57,67 @@
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="{{ url('/amenities') }}" class="nav-link">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Aminities
-                <i class="fas fa-angle-right right"></i>                
+                General Specifications
+                <i class="fas fa-angle-left right"></i>                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item has-treeview">
+                <a href="{{ url('/amenities') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Aminities
+                    <i class="fas fa-angle-right right"></i>                
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="{{ url('/cruise-categories') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Cruise Categories
+                    <i class="fas fa-angle-right right"></i>                
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="{{ url('/ship-types') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Ship Types
+                    <i class="fas fa-angle-right right"></i>                
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="{{ url('/capacity-categories') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Capacity Categories
+                    <i class="fas fa-angle-right right"></i>                
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" onclick=""class="nav-link">
+              <i class="nav-icon fas fas fa-users"></i>
+              <p>
+                Manage Users
+                <i class="fas fa-angle-right right"></i>     
               </p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="{{ url('/cruise-categories') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+            <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
-                Cruise Categories
-                <i class="fas fa-angle-right right"></i>                
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="{{ url('/ship-types') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Ship Types
-                <i class="fas fa-angle-right right"></i>                
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="{{ url('/capacity-categories') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Capacity Categoriess
-                <i class="fas fa-angle-right right"></i>                
+                Logout
+                <i class="fas fa-angle-right right"></i>     
               </p>
             </a>
           </li>

@@ -127,9 +127,9 @@
           <div class="card-body">
             <div class="form-group">
               <label for="ship-type">Amenities</label>
-              <select name="amenities" id="amenities" multiple="true"  class="select2 form-control">                               
+              <select name="amenities[]" id="amenities" multiple="true"  class="select2 form-control">                               
                 @foreach ($amenities as $item)
-                  @if($item->id == old('ship_type',''))
+                  @if(collect(old('amenities'))->contains($item->id))
                     <option selected="selected" value="{{ $item->id }}">{{ $item->name }}</option>
                   @else
                     <option value="{{ $item->id }}">{{ $item->name }}</option>

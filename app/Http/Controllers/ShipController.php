@@ -68,6 +68,8 @@ class ShipController extends Controller
             'top_speed' => 'numeric|nullable',
             'cabins' => 'numeric|nullable',
             'bathrooms' => 'numeric|nullable',
+            'tenders' => 'max:100',
+            'safety' => 'max:100',
         ]);
 
         $ship = new Ship();
@@ -177,6 +179,8 @@ class ShipController extends Controller
                 'top_speed' => 'numeric|nullable',
                 'cabins' => 'numeric|nullable',
                 'bathrooms' => 'numeric|nullable',
+                'tenders' => 'max:100',
+                'safety' => 'max:100',
             ]);
             
             $ship->name = $request->get('name'); 
@@ -253,7 +257,7 @@ class ShipController extends Controller
     private function electricty_options(){
         $options = [
             '110V' => '110V',
-            '110V/220V' => '110V/220V',
+            '110V / 220V' => '110V / 220V',
             '120V' => '120V',
         ];
 

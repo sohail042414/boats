@@ -164,7 +164,24 @@ class ShipController extends Controller
      */
     public function update(Request $request, Ship $ship)
     {
-                 //
+               
+        
+            $display_file = $request->file('display_image');
+            
+            if(is_object($display_file)){
+
+                $destinationPath = 'uploads';
+                $file_name = time().'_'.$display_file->getClientOriginalName();
+                $display_file->move($destinationPath,$file_name);
+
+                $ship->image = $file_name;
+                $ship->update();
+
+                return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
+            }
+
+
+            //
             $validatedData = $request->validate([
                 'name' => 'required|max:255',
                 'ship_link' => 'required|max:255',

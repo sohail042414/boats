@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Boats/Cruse Management',
+    'title' => 'Cruise Management',
     'title_prefix' => '',
     'title_postfix' => '',
 

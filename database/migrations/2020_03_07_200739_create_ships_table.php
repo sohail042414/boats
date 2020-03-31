@@ -75,8 +75,8 @@ class CreateshipsTable extends Migration
             $table->string('water_capacity',40)->nullable();
             $table->string('fuel_capacity',40)->nullable();
             $table->string('fresh_water_maker',40)->nullable();
-            $table->string('tenders',40)->nullable();
-            $table->string('safety',40)->nullable();
+            $table->string('tenders',100)->nullable();
+            $table->string('safety',100)->nullable();
 
             $table->timestamps();
         });

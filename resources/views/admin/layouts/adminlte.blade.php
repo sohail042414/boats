@@ -72,6 +72,9 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+  </form>
 </div>
 <!-- ./wrapper -->
 

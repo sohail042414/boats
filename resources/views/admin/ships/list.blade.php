@@ -33,14 +33,10 @@
                 <tr>
                   <th>Actions</th>
                   <th>Id</th>
-                  <th>Image</th>
-                  <th>Name</th>                  
-                  <th>Short Description</th>
-                  <th>Capacity</th>
+                  <th>Name</th>
                   <th>Ship Type</th>
                   <th>Cruise Category</th>
-                  <th>Year Build</th>
-                  <th>Year Renovated</th>                  
+                  <th>Capacity</th>                  
                 </tr>
                 </thead>
                 <tbody>
@@ -49,14 +45,10 @@
                 <tr>
                   <th>Actions</th>
                   <th>Id</th>
-                  <th>Image</th>
-                  <th>Name</th>                  
-                  <th>Short Description</th>
-                  <th>Capacity</th>
+                  <th>Name</th>
                   <th>Ship Type</th>
                   <th>Cruise Category</th>
-                  <th>Year Build</th>
-                  <th>Year Renovated</th>                 
+                  <th>Capacity</th>                               
                 </tr>
                 </tfoot>
               </table>
@@ -83,23 +75,20 @@
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'id', name: 'id' },
-                { data: 'image', name: 'image' },
                 { data: 'name', name: 'name' },
-                { data: 'short_description', name: 'id' },
-                { data: 'capacity', name: 'capacity' },
                 { data: 'ship_type.name', name: 'shipType.name' },
                 { data: 'cruise_category.name', name: 'cruiseCategory.name' },
-                { data: 'year_built', name: 'year_built' },
-                { data: 'year_renovated', name: 'year_renovated' },                
+                { data: 'capacity', name: 'capacity' } 
             ],
             columnDefs : [
-              {
+              /*{
                 "targets" : 2,
                 "data": "img",
                 "render" : function (data) {
                     return '<img class="img-size-50" src="images/'+data+'"/>';
                   }
               },
+              */
               {
                 "targets" : 0,                
                 "render" : function (data,type,row) {

@@ -16,7 +16,8 @@
 // });
 
 
-Auth::routes();
+//Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('amenities-grid', 'AmenityController@anyData')->name('amenities-grid');
 

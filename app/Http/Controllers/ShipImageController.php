@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\ShipType;
+use App\ShipImage;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
-class ShipTypeController extends Controller
+class ShipImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ShipTypeController extends Controller
      */
     public function index()
     {
-        return view('admin/ship-types/list');
+        //
     }
 
     /**
@@ -37,26 +37,15 @@ class ShipTypeController extends Controller
     public function store(Request $request)
     {
         //
-        $validatedData = $request->validate([
-            'boat_type_name' => 'required|max:255',
-            'boat_type_description' => 'required|max:255',
-        ]);
-
-        $model = new ShipType();
-        $model->name = $validatedData['boat_type_name'];
-        $model->description = $validatedData['boat_type_description'];
-        $model->save();
-
-        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ShipType  $shipType
+     * @param  \App\ShipImage  $shipImage
      * @return \Illuminate\Http\Response
      */
-    public function show(ShipType $shipType)
+    public function show(ShipImage $shipImage)
     {
         //
     }
@@ -64,10 +53,10 @@ class ShipTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ShipType  $shipType
+     * @param  \App\ShipImage  $shipImage
      * @return \Illuminate\Http\Response
      */
-    public function edit(ShipType $shipType)
+    public function edit(ShipImage $shipImage)
     {
         //
     }
@@ -76,39 +65,29 @@ class ShipTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ShipType  $shipType
+     * @param  \App\ShipImage  $shipImage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ShipType $shipType)
+    public function update(Request $request, ShipImage $shipImage)
     {
-               //
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required|max:255',
-        ]);
-        
-        $shipType->name = $validatedData['name'];
-        $shipType->description = $validatedData['description'];
-        $shipType->update();
-
-        return response()->json([
-            'success' => 'Record has been updated successfully!'
-        ]);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ShipType  $shipType
+     * @param  \App\ShipImage  $shipImage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ShipType $shipType)
+    public function destroy(ShipImage $shipImage)
     {
-        $shipType->delete();
+
+        $shipImage->delete();
 
         return response()->json([
             'success' => 'Record has been deleted successfully!'
         ]);
+
     }
 
     /**
@@ -116,8 +95,13 @@ class ShipTypeController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function gridData()
+    public function gridData(Request $request)
     {
-        return Datatables::of(ShipType::query())->make(true);
+        return Datatables::of(ShipImage::query())
+        ->filter(function ($query) use ($request) {
+            $ship_id = $request->get('ship_id');
+            $query->where('ship_id', '=', $ship_id);            
+        })->make(true);
+
     }
 }

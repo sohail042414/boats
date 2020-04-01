@@ -104,7 +104,7 @@
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" onclick=""class="nav-link">
+            <a href="{{ url('/users') }}" onclick=""class="nav-link">
               <i class="nav-icon fas fas fa-users"></i>
               <p>
                 Manage Users

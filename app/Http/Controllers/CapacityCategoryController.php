@@ -125,7 +125,7 @@ class CapacityCategoryController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function anyData()
+    public function gridData()
     {
         return Datatables::of(CapacityCategory::query())->make(true);
     }

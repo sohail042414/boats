@@ -116,7 +116,7 @@ class CruiseCategoryController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function anyData()
+    public function gridData()
     {
         return Datatables::of(CruiseCategory::query())->make(true);
     }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Amenity;
+use App\User;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
-class AmenityController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class AmenityController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin/amenities/list');
+        return view('admin/users/list');
     }
 
     /**
@@ -26,7 +25,11 @@ class AmenityController extends Controller
      */
     public function create()
     {
-        //
+        //        
+
+        return view('admin/users/create',[
+            'user_types' => $this->userTypes()
+        ]);
     }
 
     /**
@@ -38,25 +41,15 @@ class AmenityController extends Controller
     public function store(Request $request)
     {
         //
-        $validatedData = $request->validate([
-            'amenity_name' => 'required|max:255',
-        ]);
-
-        $model = new Amenity();
-        $model->name = $validatedData['amenity_name'];
-        $model->save();
-
-        return redirect()->back();
-        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Amenity  $amenity
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Amenity $amenity)
+    public function show(User $user)
     {
         //
     }
@@ -64,10 +57,10 @@ class AmenityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Amenity  $amenity
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Amenity $amenity)
+    public function edit(User $user)
     {
         //
     }
@@ -76,39 +69,23 @@ class AmenityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Amenity  $amenity
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Amenity $amenity)
+    public function update(Request $request, User $user)
     {
         //
-        $validatedData = $request->validate([
-            'amenity_name' => 'required|max:255',
-        ]);
-        
-        $amenity->name = $validatedData['amenity_name'];
-        $amenity->update();
-
-        return response()->json([
-            'success' => 'Record has been updated successfully!'
-        ]);
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Amenity  $amenity
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Amenity $amenity)
+    public function destroy(User $user)
     {
-        
-        $amenity->delete();
-
-        return response()->json([
-            'success' => 'Record has been deleted successfully!'
-        ]);
+        //
     }
 
     /**
@@ -118,6 +95,14 @@ class AmenityController extends Controller
      */
     public function gridData()
     {
-        return Datatables::of(Amenity::query())->make(true);
+        return Datatables::of(User::query())->make(true);
+    }
+
+    private function userTypes(){
+        return [
+            'owner' => 'Owner',
+            'admin' => 'Admin',
+            'sub_admin' => 'Sub-Admin'
+        ];
     }
 }

@@ -28,7 +28,7 @@
 
 <!-- Main content -->
 <section class="content">
-<form role="form" style="width:100%" id="ship-form" method="POST" action="/ships/{{ $ship->id }}" enctype="multipart/form-data">  
+<form role="form" style="width:100%" id="ship-form" method="POST" action="{{ url('/ships/'.$ship->id) }}" enctype="multipart/form-data">  
   <div class="row">
     <div class="col-md-12 col-lg-12 col-sm-12">
       @if ($errors->any())
@@ -58,18 +58,23 @@
           </div>
           <div class="card-body">
           <div class="form-group">
-            <label for="exampleInputFile">Display Image</label>
+            <label for="exampleInputFile">Upload Image</label>
             <div class="input-group">
               <div class="custom-file">
                 <input type="file" name="display_image" class="custom-file-input" id="display_image">
                 <label class="custom-file-label" for="">Choose file</label>
               </div>
               <div class="input-group-append">
-                <span class="input-group-text" id=""><input type="submit" value="Upload" name="upload_image" class="btn btn-default btn-xs"></span>
+                <span class="input-group-text">
+                  <input type="submit" value="Upload" name="upload_display_image" class="btn btn-default btn-xs">
+                </span>
               </div>
+              @if($errors->has('display_image'))
+                    <span style="display:block;" class="error invalid-feedback"> {{ $errors->first('display_image') }}</span>
+              @endif
             </div>
             <div cla="input-group">
-                  <img class="img-fluid" src="/uploads/{{ $ship->image }}" alt="Photo">
+                  <img class="img-fluid" src="{{ asset('/uploads/'.$ship->image) }}" alt="Photo">
             </div>
           </div>
           </div>
@@ -86,20 +91,53 @@
               </div>
           </div>
           <div class="card-body">
-          <div class="form-group">
-            <label for="exampleInputFile">Additional Image</label>
-            <div class="input-group">
-              <div class="custom-file">
-                <input type="file" name="additional_image" class="custom-file-input" id="display_image">
-                <label class="custom-file-label" for="">Choose file</label>
-              </div>
-              <div class="input-group-append">
-                  <span class="input-group-text" id=""><input type="submit" value="Upload" name="upload_extra_image" class="btn btn-default btn-xs"></span>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for="exampleInputFile">Upload Image</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" name="additional_image" class="custom-file-input" id="additional_image">
+                      <label class="custom-file-label" for="">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                        <input type="submit" value="Upload" name="upload_additional_image" class="btn btn-default btn-xs">
+                        </span>
+                    </div>
+                    @if($errors->has('additional_image'))
+                      <span style="display:block;" class="error invalid-feedback"> {{ $errors->first('additional_image') }}</span>
+                    @endif
+                  </div>            
+                </div>
               </div>
             </div>
-          </div>
-          </div>
+            
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                
+              <table id="ship-images-table" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>Id </th>
+                    <th>Image</th>
+                    <th>Delete</th>                  
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Id </th>
+                      <th>Image</th>
+                      <th>Delete</th>                  
+                    </tr>
+                  </tfoot>
+              </table>
+              </div>
+            </div>
 
+          </div>
         </div>
       </div>
   </div>
@@ -272,14 +310,14 @@
                 </div>
                 <div class="form-group">
                   <label for="year-built">Year Built</label>
-                  <input type="number" name="year_built" id="year-built" class="form-control" min="1970" max="{{ date('Y',time()) }}" value="{{ old('year_built',$ship->year_built) }}">
+                  <input type="number" name="year_built" id="year-built" class="form-control" value="{{ old('year_built',$ship->year_built) }}">
                   @if($errors->has('year_built'))
                     <span style="display:block;" class="error invalid-feedback"> {{ $errors->first('year_built') }}</span>
                   @endif
                 </div>
                 <div class="form-group">
                   <label for="year-renovated">Year Renovated</label>
-                  <input type="number" name="year_renovated" id="year-renovated" class="form-control" min="1970" max="{{ date('Y',time()) }}" value="{{ old('year_renovated',$ship->year_renovated) }}">
+                  <input type="number" name="year_renovated" id="year-renovated" class="form-control" value="{{ old('year_renovated',$ship->year_renovated) }}">
                   @if($errors->has('year_renovated'))
                     <span style="display:block;" class="error invalid-feedback"> {{ $errors->first('year_renovated') }}</span>
                   @endif
@@ -418,7 +456,7 @@
             </div>
             <div class="row">
               <div class="col-12">    
-                <input type="submit" name="Submit" value="Submit" class="btn btn-success">
+                <input type="submit" name="update_ship" value="Update" class="btn btn-success">
                 <a href="/ships" style="margin:0px 10px;" class="btn btn-secondary">Cancel</a>
               </div>
             </div>
@@ -436,8 +474,69 @@
 <!-- /.content -->
 @endsection
 @section('scripts')
-<script src="{{ asset('vendor/adminlte') }}/plugins/select2/js/select2.full.min.js"></script>
-<script>
-$('.select2').select2();
+    <script src="{{ asset('vendor/adminlte') }}/plugins/select2/js/select2.full.min.js"></script>
+    <script src="{{ asset('vendor/adminlte/plugins/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('vendor/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
+    <script>
+    $('.select2').select2();
+
+    $(function() {
+        $('#ship-images-table').DataTable({
+            processing: true,            
+            serverSide: true,
+            ajax: '{!! route("ship-images-grid",["ship_id"=>$ship->id]) !!}',
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'id', name: 'id' },
+            ],
+            columnDefs : [              
+              {
+                "targets" : 1,
+                "data": "img",
+                "render" : function (data) {
+                    return '<img class="img-size-50" title="'+data+'" src="{!! asset('uploads') !!}/'+data+'"/>';
+                  }
+              },    
+              {
+                "targets" : 2,                
+                "render" : function (data,type,row) {
+                    return  '<button style="margin-top:10px;" type="button" class="btn btn-danger btn-sm" onclick="deleteTableRow('+data+')"  >Delete</button>';                    
+                  }
+              }
+            ]
+        });
+    });
+
+    function deleteTableRow(row_id){
+
+        var confirmed = confirm('Are you sure? ');
+        if(confirmed == false){
+          return false;
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ url('/ship-images') }}/"+row_id,
+            type: 'DELETE',
+            success: function(response) {
+
+              $(document).Toasts('create', {
+                  title: 'Deletion Complete',
+                  body: response.success,
+                  class : 'bg-danger',
+                  autohide:true,
+                  delay : 3000,          
+              });
+
+              $('#ship-images-table').DataTable().rows().invalidate('data').draw(false);
+            }
+        });
+    }
 </script>
 @endsection

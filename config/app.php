@@ -178,6 +178,7 @@ return [
          * My installed packages. 
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
+        App\Providers\ViewServiceProvider::class
 
     ],
 

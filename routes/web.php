@@ -40,6 +40,8 @@ Route::resource('ship-images', 'ShipImageController')->only([
 ]);
 
 Route::get('users-grid', 'UserController@gridData')->name('users-grid');
+Route::get('users/{id}/change-password', 'UserController@changePassword');
+Route::put('users/change-password/{id}', 'UserController@updatePassword');
 Route::resource('users', 'UserController');
 
 Route::get('/', 'HomeController@index')->name('home');

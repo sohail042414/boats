@@ -28,7 +28,7 @@
 
 <!-- Main content -->
 <section class="content">
-<form role="form" style="width:100%" id="ship-form" method="POST" action="/ships/{{ $ship->id }}" enctype="multipart/form-data">  
+<form role="form" style="width:100%" id="ship-form" method="POST" action="{{ url('/ships/'.$ship->id) }}" enctype="multipart/form-data">  
   <div class="row">
     <div class="col-md-12 col-lg-12 col-sm-12">
       @if ($errors->any())
@@ -74,7 +74,7 @@
               @endif
             </div>
             <div cla="input-group">
-                  <img class="img-fluid" src="/uploads/{{ $ship->image }}" alt="Photo">
+                  <img class="img-fluid" src="{{ asset('/uploads/'.$ship->image) }}" alt="Photo">
             </div>
           </div>
           </div>

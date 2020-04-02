@@ -36,4 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 
+     */
+    public $types = [
+        'owner' => 'Owner',
+        'admin' => 'Admin',
+        'sub_admin' => 'Sub-Admin'
+    ];
+
+    public function userTypes(){
+        return $this->types;
+    }
 }

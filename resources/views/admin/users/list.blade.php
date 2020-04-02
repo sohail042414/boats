@@ -34,6 +34,7 @@
                 <tr>
                   <th>Actions</th>     
                   <th>Id</th>
+                  <th>Image</th>
                   <th>Name</th>
                   <th>Type</th>                
                   <th>Email</th>
@@ -47,6 +48,7 @@
                 <tr>
                   <th>Actions</th>     
                   <th>Id</th>
+                  <th>Image</th>
                   <th>Name</th>
                   <th>Type</th>  
                   <th>Email</th>
@@ -78,6 +80,7 @@
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'id', name: 'id' },
+                { data: 'image', name: 'image' },
                 { data: 'name', name: 'name' },
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
@@ -85,6 +88,13 @@
                 { data: 'updated_at', name: 'updated_at' },
             ],
             columnDefs : [
+              {
+                "targets" : 2,
+                "data": "img",
+                "render" : function (data) {
+                    return '<img class="img-size-50" src="uploads/'+data+'"/>';
+                  }
+              },
               {
                 "targets" : 0,                
                 "render" : function (data,type,row) {
@@ -96,6 +106,7 @@
                     col_html += '<span class="sr-only">Toggle Dropdown</span>';
                     col_html += '<div class="dropdown-menu" role="menu">';
                     col_html += '<a class="dropdown-item bg-gradient-primary" data-row="'+row.id+'" onclick="editTableRow(this)" href="#">Edit</a>';
+                    col_html += '<a class="dropdown-item bg-gradient-info" data-row="'+row.id+'"  onclick="changeUserPass(this)" href="#">Change Password</a>';
                     col_html += '<a class="dropdown-item bg-gradient-danger" data-row="'+row.id+'"  onclick="deleteTableRow(this)" href="#">Delete</a>';
                     col_html += '</button>';
                     col_html += '</div>';                                
@@ -145,6 +156,11 @@
       function editTableRow(obj){          
           var row_id = $(obj).attr('data-row'); 
           window.location.href = '/users/'+row_id+'/edit';
+      }
+
+      function changeUserPass(obj){          
+          var row_id = $(obj).attr('data-row'); 
+          window.location.href = '/users/'+row_id+'/change-password';
       }
 
     </script>

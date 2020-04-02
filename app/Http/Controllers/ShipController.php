@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ship;
 use App\ShipType;
+use App\ShipImage;
 use App\Amenity;
 use App\CruiseCategory;
 use App\CapacityCategory;
@@ -110,7 +111,7 @@ class ShipController extends Controller
 
         $ship->amenities()->attach($request->get('amenities'));
 
-        return redirect('/ships')->with('global_success', 'New Ship Added!');
+        return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'New ship added, Here you can add images!');
     }
 
     /**
@@ -165,14 +166,19 @@ class ShipController extends Controller
     public function update(Request $request, Ship $ship)
     {
                
-        
-            $display_file = $request->file('display_image');
-            
-            if(is_object($display_file)){
+            $upload_display_image = $request->upload_display_image;
 
-                $destinationPath = 'uploads';
+            if($upload_display_image == 'Upload'){
+
+                request()->validate([
+                    'display_image' => 'required|image|mimes:jpeg,png,jpg|max:512',
+                    //'display_image' => 'required|image|mimes:jpeg,png,jpg|max:512|dimensions:min_width=500,min_height=300',
+                ]);
+
+                $display_file = $request->file('display_image');
+                $destination_path = 'uploads';
                 $file_name = time().'_'.$display_file->getClientOriginalName();
-                $display_file->move($destinationPath,$file_name);
+                $display_file->move($destination_path,$file_name);
 
                 $ship->image = $file_name;
                 $ship->update();
@@ -180,6 +186,27 @@ class ShipController extends Controller
                 return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
             }
 
+            $upload_additional_image = $request->upload_additional_image;
+
+            if($upload_additional_image == 'Upload'){
+
+                request()->validate([
+                    'additional_image' => 'required|image|mimes:jpeg,png,jpg|max:512',
+                    //'additional_image' => 'required|image|mimes:jpeg,png,jpg|max:512|dimensions:min_width=500,min_height=300',
+                ]);
+                
+                $additional_image = $request->file('additional_image');
+                $destination_path = 'uploads';
+                $file_name = time().'_'.$additional_image->getClientOriginalName();
+                $additional_image->move($destination_path,$file_name);
+
+                $ship_image = new ShipImage();
+                $ship_image->name = $file_name;
+                $ship_image->ship_id = $ship->id;
+                $ship_image->save();
+
+                return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
+            }
 
             //
             $validatedData = $request->validate([
@@ -259,7 +286,7 @@ class ShipController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function anyData()
+    public function gridData()
     {
         //return Datatables::of(Ship::query())->make(true);
         //$ships = Ship::with('type')->with('class')->select('Ships.*');

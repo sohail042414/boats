@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\CruiseCategory;
 use App\ShipType;
 use App\Amenity;
+use App\ShipImages;
 
 class Ship extends Model
 {
@@ -19,6 +20,11 @@ class Ship extends Model
     public function amenities()
     {
         return $this->belongsToMany('App\Amenity','ship_amenities');
+    }
+
+    public function images()
+    {
+        return $this->HasMany('ShipImage','ship_amenities');
     }
 
     public function cruiseCategory()

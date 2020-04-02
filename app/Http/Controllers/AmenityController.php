@@ -116,7 +116,7 @@ class AmenityController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function anyData()
+    public function gridData()
     {
         return Datatables::of(Amenity::query())->make(true);
     }

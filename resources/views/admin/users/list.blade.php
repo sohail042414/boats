@@ -6,49 +6,54 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Cruise Ships</h1>
+        <h1 class="m-0 text-dark">Users</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
-            <li class="breadcrumb-item active">Cruise Ships</li>
+            <li class="breadcrumb-item active">Users</li>
         </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
+
     <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="card">
             <div class="card-header">
-              <a href="{{ url('/ships/create') }}" class="btn btn-success">Add New</a>
+                <a href="{{ url('/users/create') }}" class="btn btn-success">Add New</a>            
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="ships-table" class="table table-bordered table-hover">
+              <table id="users-table" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Actions</th>
+                  <th>Actions</th>     
                   <th>Id</th>
+                  <th>Image</th>
                   <th>Name</th>
-                  <th>Ship Type</th>
-                  <th>Cruise Category</th>
-                  <th>Capacity</th>                  
-                </tr>
+                  <th>Type</th>                
+                  <th>Email</th>
+                  <th>Created</th>
+                  <th>Updated</th>
+                 </tr>
                 </thead>
                 <tbody>
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Actions</th>
+                  <th>Actions</th>     
                   <th>Id</th>
+                  <th>Image</th>
                   <th>Name</th>
-                  <th>Ship Type</th>
-                  <th>Cruise Category</th>
-                  <th>Capacity</th>                               
+                  <th>Type</th>  
+                  <th>Email</th>
+                  <th>Created</th>
+                  <th>Updated</th>  
                 </tr>
                 </tfoot>
               </table>
@@ -68,27 +73,28 @@
     <script src="{{ asset('vendor/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
     <script>
     $(function() {
-        $('#ships-table').DataTable({
+        $('#users-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('ships-grid') !!}',
+            ajax: '{!! route('users-grid') !!}',
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'id', name: 'id' },
+                { data: 'image', name: 'image' },
                 { data: 'name', name: 'name' },
-                { data: 'ship_type.name', name: 'shipType.name' },
-                { data: 'cruise_category.name', name: 'cruiseCategory.name' },
-                { data: 'capacity', name: 'capacity' } 
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'created_at', name: 'created_at' },
+                { data: 'updated_at', name: 'updated_at' },
             ],
             columnDefs : [
-              /*{
+              {
                 "targets" : 2,
                 "data": "img",
                 "render" : function (data) {
-                    return '<img class="img-size-50" src="images/'+data+'"/>';
+                    return '<img class="img-size-50" src="uploads/'+data+'"/>';
                   }
               },
-              */
               {
                 "targets" : 0,                
                 "render" : function (data,type,row) {
@@ -99,8 +105,9 @@
                     col_html += '<button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown">';
                     col_html += '<span class="sr-only">Toggle Dropdown</span>';
                     col_html += '<div class="dropdown-menu" role="menu">';
-                    col_html += '<a class="dropdown-item bg-gradient-primary" onclick="editTableRow('+row.id+')" href="#">Edit</a>';
-                    col_html += '<a class="dropdown-item bg-gradient-danger" onclick="deleteTableRow('+row.id+')" href="#">Delete</a>';
+                    col_html += '<a class="dropdown-item bg-gradient-primary" data-row="'+row.id+'" onclick="editTableRow(this)" href="#">Edit</a>';
+                    col_html += '<a class="dropdown-item bg-gradient-info" data-row="'+row.id+'"  onclick="changeUserPass(this)" href="#">Change Password</a>';
+                    col_html += '<a class="dropdown-item bg-gradient-danger" data-row="'+row.id+'"  onclick="deleteTableRow(this)" href="#">Delete</a>';
                     col_html += '</button>';
                     col_html += '</div>';                                
                     return col_html;
@@ -111,12 +118,16 @@
         });
     });
 
-    function deleteTableRow(row_id){
+
+    function deleteTableRow(obj){
 
         var confirmed = confirm('Are you sure? ');
+
         if(confirmed == false){
           return false;
         }
+
+        var row_id = $(obj).attr('data-row');
 
         $.ajaxSetup({
             headers: {
@@ -125,7 +136,7 @@
         });
 
         $.ajax({
-            url: "{{ url('/ships') }}/"+row_id,
+            url: "{{ url('/users') }}/"+row_id,
             type: 'DELETE',
             success: function(response) {
 
@@ -137,13 +148,20 @@
                   delay : 3000,          
               });
 
-              $('#ships-table').DataTable().rows().invalidate('data').draw(false);
+              $('#users-table').DataTable().rows().invalidate('data').draw(false);
             }
         });
-    }
+      }
 
-    function editTableRow(row_id){
-      window.location.href = '/ships/'+row_id+'/edit';
-    }
+      function editTableRow(obj){          
+          var row_id = $(obj).attr('data-row'); 
+          window.location.href = '/users/'+row_id+'/edit';
+      }
+
+      function changeUserPass(obj){          
+          var row_id = $(obj).attr('data-row'); 
+          window.location.href = '/users/'+row_id+'/change-password';
+      }
+
     </script>
     @endsection

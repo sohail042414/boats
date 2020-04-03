@@ -39,27 +39,21 @@ class CreateshipsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('ship_images', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('ship_id');
-            $table->string('name');
-        });
-
 
         Schema::create('ships', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('image');
-            $table->text('ship_link'); //external link
+            $table->text('ship_link'); 
             $table->text('short_description');
             $table->text('title_description_1')->nullable();
             $table->text('title_description_2')->nullable();
             $table->text('title_description_3')->nullable();
             $table->integer('price')->default(0);           
             $table->integer('capacity')->default(0); 
-            $table->integer('ship_type'); //small , big etc.
-            $table->integer('cruise_category'); 
-            $table->integer('capacity_category');  
+            $table->integer('ship_type')->unsigned(); 
+            $table->integer('cruise_category')->unsigned(); 
+            $table->integer('capacity_category')->unsigned(); 
             $table->integer('year_built')->default(2000);
             $table->integer('year_renovated')->default(0);
             $table->string('length',40)->nullable();
@@ -80,6 +74,42 @@ class CreateshipsTable extends Migration
 
             $table->timestamps();
         });
+
+
+        //add foreign key
+        Schema::table('ships', function (Blueprint $table) {
+            $table->foreign('ship_type')
+            ->references('id')
+            ->on('ship_types');
+        });
+
+        //add foreign key
+        Schema::table('ships', function (Blueprint $table) {
+            $table->foreign('cruise_category')
+            ->references('id')
+            ->on('cruise_categories');
+        });
+
+        //add foreign key
+        Schema::table('ships', function (Blueprint $table) {
+            $table->foreign('capacity_category')
+            ->references('id')
+            ->on('capacity_categories');
+        });
+
+        Schema::create('ship_images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('ship_id')->unsigned();
+            $table->string('name');
+        });
+
+        //add foreign keys
+        Schema::table('ship_images', function (Blueprint $table) {
+            $table->foreign('ship_id')
+            ->references('id')
+            ->on('ships')
+            ->onDelete('cascade');
+        });
     }
 
     /**
@@ -89,8 +119,8 @@ class CreateshipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ships');
         Schema::dropIfExists('ship_images');
+        Schema::dropIfExists('ships');
         Schema::dropIfExists('capacity_categories');
         Schema::dropIfExists('cruise_categories');
         Schema::dropIfExists('ship_types');

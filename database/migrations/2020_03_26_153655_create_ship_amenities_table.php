@@ -15,8 +15,24 @@ class CreateShipAmenitiesTable extends Migration
     {
         Schema::create('ship_amenities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ship_id');
-            $table->integer('amenity_id');
+            $table->integer('ship_id')->unsigned();
+            $table->integer('amenity_id')->unsigned();
+        });
+
+        //add foreign keys
+        Schema::table('ship_amenities', function (Blueprint $table) {
+            $table->foreign('ship_id')
+            ->references('id')
+            ->on('ships')
+            ->onDelete('cascade');
+        });
+
+        //add foreign keys
+        Schema::table('ship_amenities', function (Blueprint $table) {
+            $table->foreign('amenity_id')
+            ->references('id')
+            ->on('amenities')
+            ->onDelete('cascade');
         });
     }
 

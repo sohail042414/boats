@@ -255,8 +255,7 @@ class ShipController extends Controller
         $ship->fresh_water_maker = $request->get('fresh_water_maker');  
         $ship->tenders = $request->get('tenders');  
         $ship->safety = $request->get('safety');  
-        //hard coded 
-        $ship->image = 'default_boat.jpg'; 
+        //hard coded         
         $ship->save();
 
         $ship->amenities()->sync($request->get('amenities'));

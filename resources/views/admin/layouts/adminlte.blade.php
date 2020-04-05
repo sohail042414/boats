@@ -45,15 +45,19 @@
   <div class="content-wrapper">
 
     @if (session('global_success'))
-      <div class="alert alert-success">
-          {{ session('global_success') }}
-      </div>
+      <section class="content-header">
+        <div class="alert alert-success">
+            {{ session('global_success') }}
+        </div>
+      </section>
     @endif
 
     @if (session('global_error'))
-      <div class="alert alert-error">
-          {{ session('global_error') }}
-      </div>
+      <section class="content-header">
+        <div class="alert alert-error">
+            {{ session('global_error') }}
+        </div>
+      </section>
     @endif
 
     @yield('content')

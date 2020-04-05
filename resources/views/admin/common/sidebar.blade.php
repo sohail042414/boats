@@ -104,6 +104,44 @@
             </ul>
           </li>
           <li class="nav-item has-treeview">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-globe "></i>
+              <p>
+                Geography
+                <i class="fas fa-angle-left right"></i>                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item has-treeview">
+                <a href="{{ url('/islands') }}" class="nav-link">
+                  <i class="far fas fa-mountain nav-icon"></i>
+                  <p>
+                    Islands
+                    <i class="fas fa-angle-right right"></i>                
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="{{ url('/spots') }}" class="nav-link">
+                  <i class="far fas fa-map-marker nav-icon"></i>
+                  <p>
+                    Spots
+                    <i class="fas fa-angle-right right"></i>                
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="{{ url('/animals') }}" class="nav-link">
+                  <i class="far fas fa-cat nav-icon"></i>
+                  <p>
+                    Animals/Birds
+                    <i class="fas fa-angle-right right"></i>                
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
             <a href="{{ url('/users') }}" onclick=""class="nav-link">
               <i class="nav-icon fas fas fa-users"></i>
               <p>

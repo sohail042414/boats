@@ -17,6 +17,7 @@ class CreateAnimalsTable extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',100);
+            $table->enum('type', ['animal', 'bird']);
             $table->string('image',255)->nullable();
             $table->string('short_description',255);
             $table->text('description')->nullable();

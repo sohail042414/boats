@@ -166,102 +166,102 @@ class ShipController extends Controller
     public function update(Request $request, Ship $ship)
     {
                
-            $upload_display_image = $request->upload_display_image;
+        $upload_display_image = $request->upload_display_image;
 
-            if($upload_display_image == 'Upload'){
+        if($upload_display_image == 'Upload'){
 
-                request()->validate([
-                    'display_image' => 'required|image|mimes:jpeg,png,jpg|max:512',
-                    //'display_image' => 'required|image|mimes:jpeg,png,jpg|max:512|dimensions:min_width=500,min_height=300',
-                ]);
+            request()->validate([
+                'display_image' => 'required|image|mimes:jpeg,png,jpg|max:512',
+                //'display_image' => 'required|image|mimes:jpeg,png,jpg|max:512|dimensions:min_width=500,min_height=300',
+            ]);
 
-                $display_file = $request->file('display_image');
-                $destination_path = 'uploads';
-                $file_name = time().'_'.$display_file->getClientOriginalName();
-                $display_file->move($destination_path,$file_name);
+            $display_file = $request->file('display_image');
+            $destination_path = 'uploads';
+            $file_name = time().'_'.$display_file->getClientOriginalName();
+            $display_file->move($destination_path,$file_name);
 
-                $ship->image = $file_name;
-                $ship->update();
+            $ship->image = $file_name;
+            $ship->update();
 
-                return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
-            }
+            return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
+        }
 
-            $upload_additional_image = $request->upload_additional_image;
+        $upload_additional_image = $request->upload_additional_image;
 
-            if($upload_additional_image == 'Upload'){
+        if($upload_additional_image == 'Upload'){
 
-                request()->validate([
-                    'additional_image' => 'required|image|mimes:jpeg,png,jpg|max:512',
-                    //'additional_image' => 'required|image|mimes:jpeg,png,jpg|max:512|dimensions:min_width=500,min_height=300',
-                ]);
-                
-                $additional_image = $request->file('additional_image');
-                $destination_path = 'uploads';
-                $file_name = time().'_'.$additional_image->getClientOriginalName();
-                $additional_image->move($destination_path,$file_name);
-
-                $ship_image = new ShipImage();
-                $ship_image->name = $file_name;
-                $ship_image->ship_id = $ship->id;
-                $ship_image->save();
-
-                return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
-            }
-
-            //
-            $validatedData = $request->validate([
-                'name' => 'required|max:255',
-                'ship_link' => 'required|max:255',
-                'short_description' => 'required|max:255|min:20',
-                'ship_type' => 'required|numeric',
-                'cruise_category' => 'required|numeric',
-                'capacity_category' => 'required|numeric',
-                'price' => 'required|numeric',
-                //'capacity' => 'sometimes|numeric',
-                'year_built' => 'numeric|nullable',
-                'year_renovated' => 'numeric|nullable',
-                'top_speed' => 'numeric|nullable',
-                'cabins' => 'numeric|nullable',
-                'bathrooms' => 'numeric|nullable',
-                'tenders' => 'max:100',
-                'safety' => 'max:100',
+            request()->validate([
+                'additional_image' => 'required|image|mimes:jpeg,png,jpg|max:512',
+                //'additional_image' => 'required|image|mimes:jpeg,png,jpg|max:512|dimensions:min_width=500,min_height=300',
             ]);
             
-            $ship->name = $request->get('name'); 
-            $ship->ship_link = $request->get('ship_link'); 
-            $ship->short_description = $request->get('short_description'); 
-            $ship->title_description_1 = $request->get('title_description_1'); 
-            $ship->title_description_2 = $request->get('title_description_2'); 
-            $ship->title_description_3 = $request->get('title_description_3'); 
-            $ship->ship_type = $request->get('ship_type'); 
-            $ship->cruise_category = $request->get('cruise_category'); 
-            $ship->capacity_category = $request->get('capacity_category'); 
-            $ship->price = $request->get('price'); 
-            $ship->capacity = (int) $request->get('capacity');  
-            $ship->year_built = (int)$request->get('year_built'); 
-            $ship->year_renovated = (int) $request->get('year_renovated');
-            $ship->length = $request->get('length'); 
-            $ship->beam = $request->get('beam'); 
-            $ship->draft = $request->get('draft'); 
-            $ship->top_speed = $request->get('top_speed');
-            $ship->crusing_speed = $request->get('crusing_speed'); 
-            $ship->engines = $request->get('engines'); 
-            $ship->cabins = (int)$request->get('cabins'); 
-            $ship->bathrooms = (int)$request->get('bathrooms'); 
-            $ship->electricity = $request->get('electricity');
-            $ship->gross_tonnage = $request->get('gross_tonnage');  
-            $ship->water_capacity = $request->get('water_capacity');  
-            $ship->fuel_capacity = $request->get('fuel_capacity');  
-            $ship->fresh_water_maker = $request->get('fresh_water_maker');  
-            $ship->tenders = $request->get('tenders');  
-            $ship->safety = $request->get('safety');  
-            //hard coded 
-            $ship->image = 'default_boat.jpg'; 
-            $ship->save();
+            $additional_image = $request->file('additional_image');
+            $destination_path = 'uploads';
+            $file_name = time().'_'.$additional_image->getClientOriginalName();
+            $additional_image->move($destination_path,$file_name);
 
-            $ship->amenities()->sync($request->get('amenities'));
+            $ship_image = new ShipImage();
+            $ship_image->name = $file_name;
+            $ship_image->ship_id = $ship->id;
+            $ship_image->save();
 
-            return redirect('/ships')->with('global_success', 'Record Updated Successfully!');
+            return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
+        }
+
+        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'ship_link' => 'required|max:255',
+            'short_description' => 'required|max:255|min:20',
+            'ship_type' => 'required|numeric',
+            'cruise_category' => 'required|numeric',
+            'capacity_category' => 'required|numeric',
+            'price' => 'required|numeric',
+            //'capacity' => 'sometimes|numeric',
+            'year_built' => 'numeric|nullable',
+            'year_renovated' => 'numeric|nullable',
+            'top_speed' => 'numeric|nullable',
+            'cabins' => 'numeric|nullable',
+            'bathrooms' => 'numeric|nullable',
+            'tenders' => 'max:100',
+            'safety' => 'max:100',
+        ]);
+        
+        $ship->name = $request->get('name'); 
+        $ship->ship_link = $request->get('ship_link'); 
+        $ship->short_description = $request->get('short_description'); 
+        $ship->title_description_1 = $request->get('title_description_1'); 
+        $ship->title_description_2 = $request->get('title_description_2'); 
+        $ship->title_description_3 = $request->get('title_description_3'); 
+        $ship->ship_type = $request->get('ship_type'); 
+        $ship->cruise_category = $request->get('cruise_category'); 
+        $ship->capacity_category = $request->get('capacity_category'); 
+        $ship->price = $request->get('price'); 
+        $ship->capacity = (int) $request->get('capacity');  
+        $ship->year_built = (int)$request->get('year_built'); 
+        $ship->year_renovated = (int) $request->get('year_renovated');
+        $ship->length = $request->get('length'); 
+        $ship->beam = $request->get('beam'); 
+        $ship->draft = $request->get('draft'); 
+        $ship->top_speed = $request->get('top_speed');
+        $ship->crusing_speed = $request->get('crusing_speed'); 
+        $ship->engines = $request->get('engines'); 
+        $ship->cabins = (int)$request->get('cabins'); 
+        $ship->bathrooms = (int)$request->get('bathrooms'); 
+        $ship->electricity = $request->get('electricity');
+        $ship->gross_tonnage = $request->get('gross_tonnage');  
+        $ship->water_capacity = $request->get('water_capacity');  
+        $ship->fuel_capacity = $request->get('fuel_capacity');  
+        $ship->fresh_water_maker = $request->get('fresh_water_maker');  
+        $ship->tenders = $request->get('tenders');  
+        $ship->safety = $request->get('safety');  
+        //hard coded 
+        $ship->image = 'default_boat.jpg'; 
+        $ship->save();
+
+        $ship->amenities()->sync($request->get('amenities'));
+
+        return redirect('/ships')->with('global_success', 'Record Updated Successfully!');
     }
 
     /**

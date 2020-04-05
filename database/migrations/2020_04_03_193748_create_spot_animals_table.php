@@ -22,16 +22,17 @@ class CreateSpotAnimalsTable extends Migration
         Schema::table('spot_animals', function (Blueprint $table) {
             $table->foreign('spot_id')
             ->references('id')
-            ->on('spots');
+            ->on('spots')
+            ->onDelete('cascade');
         });
 
         Schema::table('spot_animals', function (Blueprint $table) {
             $table->foreign('animal_id')
             ->references('id')
-            ->on('animals');
+            ->on('animals')
+            ->onDelete('cascade');
         });
 
-        
     }
 
     /**

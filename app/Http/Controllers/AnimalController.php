@@ -168,7 +168,17 @@ class AnimalController extends Controller
      */
     public function destroy(Animal $animal)
     {
+
+        $animal_spots = $animal->spots()->count();
+
+        if((int)$animal_spots > 0){
+            return response()->json([
+                'error' => 'This animal is attached with spots, detach first then delete!'
+            ]);
+        }
+
         $animal->delete();
+
         return response()->json([
             'success' => 'Record has been deleted successfully!'
         ]);

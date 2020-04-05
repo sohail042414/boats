@@ -28,4 +28,12 @@ class Animal extends Model
         }
         return $data;
     }
+
+    /**
+     * 
+     */
+    public function spots()
+    {
+        return $this->belongsToMany('App\Spot','spot_animals');
+    }
 }

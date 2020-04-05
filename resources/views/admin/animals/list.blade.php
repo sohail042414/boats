@@ -129,13 +129,23 @@
           type: 'DELETE',
           success: function(response) {
 
-            $(document).Toasts('create', {
-                title: 'Deletion Complete',
-                body: response.success,
-                class : 'bg-danger',
-                autohide:true,
-                delay : 3000,          
-            });
+            if(response.success){
+                $(document).Toasts('create', {
+                    title: 'Operation Completed!',
+                    body: response.success,
+                    class : 'bg-success',
+                    autohide:true,
+                    delay : 3000,          
+                });
+            }else if(response.error){
+              $(document).Toasts('create', {
+                    title: 'Operation Failed!',
+                    body: response.error,
+                    class : 'bg-danger',
+                    autohide:true,
+                    delay : 5000,          
+                });
+            }
 
             $('#animals-table').DataTable().rows().invalidate('data').draw(false);
           }

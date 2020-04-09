@@ -232,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         /**Installed  */
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Carbon' => 'Carbon\Carbon'
     ],
 
 ];

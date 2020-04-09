@@ -61,7 +61,7 @@ class ItineraryController extends Controller
 
         $itinerary->spots()->attach($request->get('spots'));
 
-        return redirect('/itineraries/'.$itinerary->id.'/edit')->with('global_success', 'New Itinerary  added!');
+        return redirect('/itineraries/'.$itinerary->id.'/edit')->with('global_success', 'New Itinerary  added, Add images here!');
     }
 
     /**
@@ -113,7 +113,7 @@ class ItineraryController extends Controller
 
         $validated_data = $request->validate([
             'code' => 'required|max:10',
-            'code' => 'required|max:50',
+            'title' => 'required|max:50',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
         ]);

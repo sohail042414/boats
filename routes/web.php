@@ -71,12 +71,17 @@ Route::middleware(['auth'])->group(function () {
         'destroy'
     ]);
 
+    Route::get('itineraries-grid', 'ItineraryController@gridData')->name('itineraries-grid');
+    Route::resource('itineraries', 'ItineraryController');
+
+    Route::get('tours-grid', 'TourController@gridData')->name('tours-grid');
+    Route::resource('tours', 'TourController');
+
     //users
     Route::get('users-grid', 'UserController@gridData')->name('users-grid');
     Route::get('users/{id}/change-password', 'UserController@changePassword');
     Route::put('users/change-password/{id}', 'UserController@updatePassword');
     Route::resource('users', 'UserController');
-    
     
 
     //default

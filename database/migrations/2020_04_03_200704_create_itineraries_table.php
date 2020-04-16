@@ -15,13 +15,21 @@ class CreateItinerariesTable extends Migration
     {
         Schema::create('itineraries', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('ship_id')->unsigned();
             $table->string('code',10)->nullable();
             $table->string('title',50)->nullable();
             $table->dateTime('start_date',0);
             $table->dateTime('end_date',0);
             $table->timestamps();
         });
-        
+
+        //add foreign keys
+        Schema::table('itineraries', function (Blueprint $table) {
+            $table->foreign('ship_id')
+            ->references('id')
+            ->on('ships')
+            ->onDelete('cascade');
+        });        
     }
 
     /**

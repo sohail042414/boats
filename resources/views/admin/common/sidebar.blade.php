@@ -141,7 +141,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview" style="display:none;">
             <a href="{{ url('/itineraries') }}" onclick=""class="nav-link">
               <i class="nav-icon fas fas fa-globe-americas"></i>
               <p>
@@ -154,7 +154,7 @@
             <a href="{{ url('/tours') }}" onclick=""class="nav-link">
               <i class="nav-icon fas fas fa-plane-departure"></i>
               <p>
-                Tours
+                Tours/Departures
                 <i class="fas fa-angle-right right"></i>     
               </p>
             </a>

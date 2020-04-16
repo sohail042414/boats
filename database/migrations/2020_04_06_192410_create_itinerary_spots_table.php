@@ -13,6 +13,7 @@ class CreateItinerarySpotsTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('itinerary_spots', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('itinerary_id')->unsigned();

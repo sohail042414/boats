@@ -53,6 +53,7 @@ class ItineraryController extends Controller
         ]);
 
         $itinerary = new Itinerary();
+        $itinerary->ship_id = $request->get('ship_id');
         $itinerary->code = $validated_data['code'];
         $itinerary->title = $validated_data['title'];  
         $itinerary->start_date = $validated_data['start_date'];  
@@ -61,7 +62,10 @@ class ItineraryController extends Controller
 
         $itinerary->spots()->attach($request->get('spots'));
 
-        return redirect('/itineraries/'.$itinerary->id.'/edit')->with('global_success', 'New Itinerary  added, Add images here!');
+        return redirect()->back()->with([
+            'global_success' => 'New Itinerary  added!',
+            'tab' => 'itineraries'
+            ]);
     }
 
     /**
@@ -149,8 +153,14 @@ class ItineraryController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function gridData()
+    public function gridData(Request $request)
     {
-        return Datatables::of(Itinerary::query())->make(true);
+        //return Datatables::of(Itinerary::query())->make(true);
+
+        return Datatables::of(Itinerary::query())
+        ->filter(function ($query) use ($request) {
+            $ship_id = $request->get('ship_id');
+            $query->where('ship_id', '=', $ship_id);            
+        })->make(true);
     }
 }

@@ -9,8 +9,7 @@ use App\Amenity;
 use App\ShipImages;
 
 class Ship extends Model
-{
-    
+{    
     //
     public function getList(){
         $items = $this->all();

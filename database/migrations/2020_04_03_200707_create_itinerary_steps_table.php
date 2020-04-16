@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTourStepsTable extends Migration
+class CreateItineraryStepsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTourStepsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tour_steps', function (Blueprint $table) {
+        Schema::create('itinerary_steps', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('serial_no')->unsigned();
             $table->string('title',255);
-            $table->integer('tour_id')->unsigned();
+            $table->integer('itinerary_id')->unsigned();
             $table->integer('island_id')->unsigned();
             $table->integer('spot_id')->unsigned();
             $table->dateTime('step_date',0);
@@ -27,15 +27,15 @@ class CreateTourStepsTable extends Migration
         });
 
         //add foreign keys
-        Schema::table('tour_steps', function (Blueprint $table) {
-            $table->foreign('tour_id')
+        Schema::table('itinerary_steps', function (Blueprint $table) {
+            $table->foreign('itinerary_id')
             ->references('id')
-            ->on('tours')
+            ->on('itineraries')
             ->onDelete('cascade');
         });
 
         //add foreign keys
-        Schema::table('tour_steps', function (Blueprint $table) {
+        Schema::table('itinerary_steps', function (Blueprint $table) {
             $table->foreign('island_id')
             ->references('id')
             ->on('islands')
@@ -43,7 +43,7 @@ class CreateTourStepsTable extends Migration
         });
 
         //add foreign keys
-        Schema::table('tour_steps', function (Blueprint $table) {
+        Schema::table('itinerary_steps', function (Blueprint $table) {
             $table->foreign('spot_id')
             ->references('id')
             ->on('spots')
@@ -58,6 +58,6 @@ class CreateTourStepsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tour_steps');
+        Schema::dropIfExists('itinerary_steps');
     }
 }

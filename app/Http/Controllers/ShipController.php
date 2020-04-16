@@ -8,6 +8,8 @@ use App\ShipImage;
 use App\Amenity;
 use App\CruiseCategory;
 use App\CapacityCategory;
+use App\Itinerary;
+use App\Spot;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -131,9 +133,19 @@ class ShipController extends Controller
      * @param  \App\Ship  $ship
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ship $ship)
+    public function edit(Ship $ship,Request $request)
     {
-        //
+
+        //$tab = $request->get('tab');
+
+        $tab = $request->session()->get('tab');
+
+        //dd($tab);
+
+        if($tab == '' || !in_array($tab,['general','images','itineraries'])){
+            $tab = 'general';
+        }
+
         $amenities = Amenity::all();
         $ship_types = ShipType::all();
         $cruise_cats = CruiseCategory::all();
@@ -144,14 +156,26 @@ class ShipController extends Controller
             $ship_amenities[] = $record->id;
         }
 
+        $itinerary = new Itinerary();
+
+
+        $spot = new Spot();
+        $spots_list = $spot->getList();   
+
+        $itinerary_spots = [];
+
         return view('admin/ships/edit',[
             'ship' => $ship,
+            'tab' => $tab,
             'ship_amenities' => $ship_amenities,
             'amenities' => $amenities,
             'ship_types' => $ship_types,
             'cruise_cats'=> $cruise_cats,
             'capacity_cats'=> $capacity_cats,
             'electricty_options' => $this->electricty_options(),
+            'itinerary' => $itinerary,
+            'spots_list' => $spots_list,
+            'itinerary_spots' => $itinerary_spots
         ]);
 
     }
@@ -165,9 +189,16 @@ class ShipController extends Controller
      */
     public function update(Request $request, Ship $ship)
     {
-               
-        $upload_display_image = $request->upload_display_image;
 
+        $tab = $request->get('tab');
+
+        if($tab == '' || !in_array($tab,['general','images','itineraries'])){
+            $tab = 'general';
+        }
+
+        //upload display image             
+        $upload_display_image = $request->upload_display_image;
+    
         if($upload_display_image == 'Upload'){
 
             request()->validate([
@@ -183,9 +214,13 @@ class ShipController extends Controller
             $ship->image = $file_name;
             $ship->update();
 
-            return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
+            //return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
+            return redirect('/ships/'.$ship->id.'/edit')
+            ->with(['global_success'=> 'Ship information updated!',
+                    'tab'=> $tab
+                ]);
         }
-
+        //upload additional images
         $upload_additional_image = $request->upload_additional_image;
 
         if($upload_additional_image == 'Upload'){
@@ -205,10 +240,14 @@ class ShipController extends Controller
             $ship_image->ship_id = $ship->id;
             $ship_image->save();
 
-            return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
+            //return redirect('/ships/'.$ship->id.'/edit')->with('global_success', 'Image Uploaded!');
+            return redirect('/ships/'.$ship->id.'/edit')
+            ->with(['global_success'=> 'Ship information updated!',
+                    'tab'=> $tab
+                ]);
         }
 
-        //
+        //update general information.
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'ship_link' => 'required|max:255',
@@ -257,10 +296,13 @@ class ShipController extends Controller
         $ship->safety = $request->get('safety');  
         //hard coded         
         $ship->save();
+        $ship->amenities()->sync($request->get('amenities'));        
 
-        $ship->amenities()->sync($request->get('amenities'));
-
-        return redirect('/ships')->with('global_success', 'Record Updated Successfully!');
+        //return redirect('/ships')->with('global_success', 'Record Updated Successfully!');
+        return redirect('/ships/'.$ship->id.'/edit')
+        ->with(['global_success'=> 'Ship information updated!',
+                'tab'=> 'general'
+            ]);
     }
 
     /**
